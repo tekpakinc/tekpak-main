@@ -3,342 +3,365 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b5fb3" />
-  <title>Tek-Pak Inc. | Digital ID Badge | Ron Easter</title>
+  <meta name="theme-color" content="#0f4c97" />
+  <title>Digital ID Credential | Ron Easter</title>
   <style>
     :root{
-      --tek-blue:#0b5fb3;
-      --tek-blue-dark:#0a4f95;
-      --tek-yellow:#ffd23f;
-      --bg:#f3f7fc;
+      --primary:#0f4c97;
+      --primary-dark:#0b3c79;
+      --accent:#ffc928;
+      --bg:#eef3f9;
       --card:#ffffff;
-      --text:#13233a;
-      --muted:#5d6b82;
-      --line:#d7e2f0;
-      --ok:#0d9f6e;
-      --danger:#cc2f2f;
-      --shadow:0 14px 34px rgba(9,34,67,.14);
+      --ink:#17263c;
+      --muted:#607089;
+      --line:#d7e0ec;
+      --ok:#157347;
+      --warn:#9a6b00;
+      --shadow:0 14px 34px rgba(14,34,62,.12);
+      --radius:18px;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{
-      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--ink);
       background:
-        radial-gradient(1200px 420px at 10% -10%, rgba(11,95,179,.14), transparent 55%),
-        radial-gradient(900px 360px at 90% -20%, rgba(255,210,63,.14), transparent 58%),
+        radial-gradient(1100px 360px at 8% -10%, rgba(15,76,151,.12), transparent 55%),
+        radial-gradient(900px 280px at 95% -15%, rgba(255,201,40,.16), transparent 60%),
         var(--bg);
-      color:var(--text);
       min-height:100vh;
       display:grid;
       place-items:center;
-      padding:24px;
+      padding:20px;
     }
 
-    .wrap{
-      width:min(820px,100%);
+    .page{
+      width:min(900px,100%);
     }
 
-    .card{
+    .credential{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:22px;
-      overflow:hidden;
+      border-radius:24px;
       box-shadow:var(--shadow);
+      overflow:hidden;
     }
 
-    .topbar{
-      background:linear-gradient(120deg,var(--tek-blue),var(--tek-blue-dark));
-      color:#fff;
-      padding:18px 22px;
+    .header{
+      background:linear-gradient(115deg,var(--primary),var(--primary-dark));
+      border-bottom:4px solid var(--accent);
+      padding:14px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      border-bottom:4px solid var(--tek-yellow);
+      gap:14px;
+      min-height:84px;
     }
 
-    .brand{
+    .header-left{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       min-width:0;
     }
 
-    .shield{
-      width:44px;height:44px;border-radius:12px;
-      background:linear-gradient(160deg,var(--tek-yellow),#ffc318);
-      color:#25303f;
-      display:grid;place-items:center;
-      font-weight:900;
-      box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);
-      flex:0 0 auto;
+    .logo-wrap{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:12px;
+      padding:8px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      min-width:180px;
     }
 
-    .brand h1{
+    .logo-wrap img{
+      max-height:36px;
+      width:auto;
+      display:block;
+      object-fit:contain;
+    }
+
+    .header-title{
+      color:#fff;
+      min-width:0;
+    }
+    .header-title h1{
       margin:0;
-      font-size:1.05rem;
+      font-size:1.03rem;
       letter-spacing:.2px;
+      font-weight:800;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .brand p{
+    .header-title p{
       margin:2px 0 0;
       font-size:.83rem;
-      opacity:.9;
+      opacity:.95;
     }
 
     .status{
-      background:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.14);
       border:1px solid rgba(255,255,255,.35);
-      padding:7px 11px;
+      color:#fff;
       border-radius:999px;
-      font-size:.8rem;
-      font-weight:700;
+      padding:8px 12px;
+      font-weight:800;
+      font-size:.78rem;
+      letter-spacing:.4px;
       white-space:nowrap;
     }
 
     .main{
+      padding:20px;
       display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:22px;
-      padding:22px;
+      grid-template-columns: 290px 1fr;
+      gap:20px;
     }
 
-    @media (max-width:760px){
-      .main{grid-template-columns:1fr; padding:18px}
+    @media (max-width:820px){
+      .main{grid-template-columns:1fr}
+      .logo-wrap{min-width:130px}
+      .header-title h1{font-size:.95rem}
     }
 
-    .photoCard{
+    .panel{
       border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
+      border-radius:var(--radius);
       background:#fff;
+      overflow:hidden;
     }
 
-    .photoWrap{
-      aspect-ratio:3/4;
-      background:#e9eff8;
+    .photo-area{
       display:grid;
-      place-items:center;
+      grid-template-rows:auto auto;
     }
 
-    .photoWrap img{
+    .photo-box{
+      aspect-ratio:3/4;
+      background:#e7edf6;
+    }
+
+    .photo-box img{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
     }
 
-    .photoMeta{
-      padding:10px 12px;
+    .photo-meta{
       border-top:1px solid var(--line);
+      padding:10px 12px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
       gap:8px;
-      font-size:.83rem;
+      font-size:.82rem;
       color:var(--muted);
     }
 
-    .chip{
-      font-weight:800;
-      color:#0d6f4e;
-      background:#e7f8f1;
-      border:1px solid #bee9d9;
+    .verified{
+      background:#e9f8ef;
+      border:1px solid #bfe8cc;
+      color:var(--ok);
       border-radius:999px;
       padding:4px 8px;
       font-size:.74rem;
+      font-weight:800;
     }
 
-    .info{
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      background:#fff;
-    }
-
-    .infoHead{
+    .info .top{
       padding:14px 16px;
-      background:linear-gradient(180deg,#f8fbff,#f3f8ff);
       border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,#fbfdff,#f5f9ff);
     }
 
     .name{
       margin:0;
-      font-size:1.5rem;
+      font-size:1.55rem;
       line-height:1.1;
       letter-spacing:.2px;
     }
 
-    .title{
-      margin:.25rem 0 0;
-      color:var(--tek-blue);
-      font-weight:700;
+    .role{
+      margin:4px 0 0;
+      color:var(--primary);
+      font-weight:800;
       font-size:.95rem;
     }
 
-    .grid{
+    .subrole{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:.84rem;
+      font-weight:600;
+    }
+
+    .rows{
       display:grid;
-      grid-template-columns: 170px 1fr;
+      gap:0;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 180px 1fr;
       border-top:1px solid var(--line);
     }
-    .grid:first-of-type{border-top:none}
-    .grid dt,.grid dd{
-      margin:0;
-      padding:12px 14px;
-      font-size:.93rem;
+
+    .row .k,.row .v{
+      padding:11px 14px;
+      font-size:.92rem;
     }
-    .grid dt{
+
+    .row .k{
       background:#fbfdff;
       border-right:1px solid var(--line);
-      color:#3d4f6a;
       font-weight:700;
+      color:#3d4f68;
     }
-    .grid dd{
-      color:#1d2f4a;
+
+    .row .v{
+      color:#1d2f46;
       word-break:break-word;
     }
 
-    @media (max-width:520px){
-      .grid{grid-template-columns:1fr}
-      .grid dt{
+    @media (max-width:600px){
+      .row{grid-template-columns:1fr}
+      .row .k{
         border-right:none;
         border-bottom:1px solid var(--line);
       }
     }
 
-    .footer{
+    .access-bands{
       border-top:1px dashed var(--line);
-      margin-top:14px;
-      padding-top:14px;
+      padding:12px 14px;
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
-      color:var(--muted);
-      font-size:.82rem;
+      gap:8px;
     }
 
-    .tag{
+    .band{
+      font-size:.78rem;
+      font-weight:700;
+      color:#3c4f6a;
       border:1px solid var(--line);
-      background:#f9fcff;
-      padding:6px 10px;
+      background:#f9fbff;
       border-radius:999px;
+      padding:6px 10px;
     }
 
-    .disclaimer{
-      margin-top:14px;
-      padding:12px;
-      border:1px solid #ffe1a8;
-      background:#fff8e8;
-      color:#7c5a11;
+    .notice{
+      margin:14px 20px 20px;
+      border:1px solid #ffe2a8;
+      background:#fff7e7;
+      color:#77530f;
       border-radius:12px;
+      padding:12px;
       font-size:.82rem;
       line-height:1.45;
     }
 
-    .siteFooter{
+    .footer{
       text-align:center;
-      margin-top:14px;
-      color:#70809b;
+      margin-top:12px;
       font-size:.78rem;
+      color:#6f819b;
     }
 
-    .siteFooter a{
-      color:var(--tek-blue);
-      text-decoration:none;
-      font-weight:700;
-    }
-    .siteFooter a:hover{text-decoration:underline}
+    .footer strong{color:#425775}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card" role="region" aria-label="Digital employee ID badge">
-      <header class="topbar">
-        <div class="brand">
-          <div class="shield" aria-hidden="true">TP</div>
-          <div>
-            <h1>Tek-Pak Incorporated</h1>
-            <p>Digital Employee Identification</p>
+  <main class="page">
+    <section class="credential" role="region" aria-label="Digital credential page">
+      <header class="header">
+        <div class="header-left">
+          <div class="logo-wrap" aria-label="Company logo">
+            <img src="tekpaklogo.png" alt="Tek-Pak company logo">
+          </div>
+          <div class="header-title">
+            <h1>Digital Contractor Identification</h1>
+            <p>Authorized Field Personnel Credential</p>
           </div>
         </div>
-        <div class="status" aria-label="Badge status">ACTIVE</div>
+        <div class="status" aria-label="Badge status">STATUS: ACTIVE</div>
       </header>
 
       <div class="main">
-        <aside class="photoCard" aria-label="Employee headshot and badge status">
-          <div class="photoWrap">
-            <img src="reaster_headshot.png" alt="Headshot of Ron Easter" />
+        <aside class="panel photo-area" aria-label="Credential photo">
+          <div class="photo-box">
+            <img src="reaster_headshot.png" alt="Headshot of Ron Easter">
           </div>
-          <div class="photoMeta">
-            <span>Employee Photo</span>
-            <span class="chip">Verified</span>
+          <div class="photo-meta">
+            <span>Identity Photo</span>
+            <span class="verified">Verified</span>
           </div>
         </aside>
 
-        <section class="info" aria-label="Employee information">
-          <div class="infoHead">
+        <section class="panel info" aria-label="Personnel details">
+          <div class="top">
             <h2 class="name">Ron Easter</h2>
-            <p class="title">Technician / Operations Support</p>
+            <p class="role">Technician / Operations Support</p>
+            <p class="subrole">Onsite Service & Client Facility Access</p>
           </div>
 
-          <dl>
-            <div class="grid">
-              <dt>Company</dt>
-              <dd>Tek-Pak Incorporated</dd>
+          <div class="rows">
+            <div class="row">
+              <div class="k">Legal Employer</div>
+              <div class="v">Tek-Pak Inc.</div>
             </div>
-            <div class="grid">
-              <dt>Department</dt>
-              <dd>Operations / Refurbishment</dd>
+            <div class="row">
+              <div class="k">Credential ID</div>
+              <div class="v">TP-RON-0001</div>
             </div>
-            <div class="grid">
-              <dt>Employee ID</dt>
-              <dd>TP-RON-0001</dd>
+            <div class="row">
+              <div class="k">Personnel Type</div>
+              <div class="v">Authorized Contractor / Field Technician</div>
             </div>
-            <div class="grid">
-              <dt>Badge Type</dt>
-              <dd>Employee Access Credential</dd>
+            <div class="row">
+              <div class="k">Primary Shift</div>
+              <div class="v">Mon–Thu, 5:00 PM – 11:00 PM (Second Shift)</div>
             </div>
-            <div class="grid">
-              <dt>Shift</dt>
-              <dd>Second Shift (Mon–Thu, 5:00 PM – 11:00 PM)</dd>
+            <div class="row">
+              <div class="k">Issue Date</div>
+              <div class="v"><time datetime="2026-02-09">February 9, 2026</time></div>
             </div>
-            <div class="grid">
-              <dt>Issued</dt>
-              <dd><time datetime="2026-02-09">February 9, 2026</time></dd>
+            <div class="row">
+              <div class="k">Verification Contact</div>
+              <div class="v">
+                <a href="mailto:info@tek-pak.com" style="color:#0f4c97;font-weight:700;text-decoration:none;">info@tek-pak.com</a>
+              </div>
             </div>
-            <div class="grid">
-              <dt>Contact</dt>
-              <dd>
-                <a href="mailto:info@tek-pak.com" style="color:#0b5fb3;font-weight:700;text-decoration:none;">info@tek-pak.com</a>
-              </dd>
-            </div>
-          </dl>
-
-          <div class="footer" aria-label="Badge attributes">
-            <span class="tag">On-site Access</span>
-            <span class="tag">Company Property Handling</span>
-            <span class="tag">Digital Verification Enabled</span>
           </div>
 
-          <div class="disclaimer">
-            This digital badge is the property of Tek-Pak Incorporated and is intended for identification and access verification only.
-            If found, or if status appears inactive/suspended, please contact Tek-Pak immediately.
+          <div class="access-bands" aria-label="Access authorizations">
+            <span class="band">Client Site Access</span>
+            <span class="band">Equipment Handling</span>
+            <span class="band">Asset Intake / Processing</span>
+            <span class="band">Service Dispatch Eligible</span>
           </div>
         </section>
       </div>
+
+      <div class="notice">
+        This credential confirms identity and employment authorization for onsite work assignments.
+        Access scope may be limited by client policy, work order terms, and site security requirements.
+        For immediate verification, contact Tek-Pak using the listed verification channel.
+      </div>
     </section>
 
-    <p class="siteFooter">
-      © <span id="year"></span> Tek-Pak Incorporated • Powered by GitHub Pages
+    <p class="footer">
+      © <span id="year"></span> <strong>Tek-Pak Inc.</strong> • Digital Credential System
     </p>
   </main>
 
   <script>
-    // Auto-year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
