@@ -1,1 +1,344 @@
-testing.
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b5fb3" />
+  <title>Tek-Pak Inc. | Digital ID Badge | Ron Easter</title>
+  <style>
+    :root{
+      --tek-blue:#0b5fb3;
+      --tek-blue-dark:#0a4f95;
+      --tek-yellow:#ffd23f;
+      --bg:#f3f7fc;
+      --card:#ffffff;
+      --text:#13233a;
+      --muted:#5d6b82;
+      --line:#d7e2f0;
+      --ok:#0d9f6e;
+      --danger:#cc2f2f;
+      --shadow:0 14px 34px rgba(9,34,67,.14);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 420px at 10% -10%, rgba(11,95,179,.14), transparent 55%),
+        radial-gradient(900px 360px at 90% -20%, rgba(255,210,63,.14), transparent 58%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    .wrap{
+      width:min(820px,100%);
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .topbar{
+      background:linear-gradient(120deg,var(--tek-blue),var(--tek-blue-dark));
+      color:#fff;
+      padding:18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:4px solid var(--tek-yellow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .shield{
+      width:44px;height:44px;border-radius:12px;
+      background:linear-gradient(160deg,var(--tek-yellow),#ffc318);
+      color:#25303f;
+      display:grid;place-items:center;
+      font-weight:900;
+      box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);
+      flex:0 0 auto;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:1.05rem;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size:.83rem;
+      opacity:.9;
+    }
+
+    .status{
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.35);
+      padding:7px 11px;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .main{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:22px;
+      padding:22px;
+    }
+
+    @media (max-width:760px){
+      .main{grid-template-columns:1fr; padding:18px}
+    }
+
+    .photoCard{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .photoWrap{
+      aspect-ratio:3/4;
+      background:#e9eff8;
+      display:grid;
+      place-items:center;
+    }
+
+    .photoWrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .photoMeta{
+      padding:10px 12px;
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      font-size:.83rem;
+      color:var(--muted);
+    }
+
+    .chip{
+      font-weight:800;
+      color:#0d6f4e;
+      background:#e7f8f1;
+      border:1px solid #bee9d9;
+      border-radius:999px;
+      padding:4px 8px;
+      font-size:.74rem;
+    }
+
+    .info{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .infoHead{
+      padding:14px 16px;
+      background:linear-gradient(180deg,#f8fbff,#f3f8ff);
+      border-bottom:1px solid var(--line);
+    }
+
+    .name{
+      margin:0;
+      font-size:1.5rem;
+      line-height:1.1;
+      letter-spacing:.2px;
+    }
+
+    .title{
+      margin:.25rem 0 0;
+      color:var(--tek-blue);
+      font-weight:700;
+      font-size:.95rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 170px 1fr;
+      border-top:1px solid var(--line);
+    }
+    .grid:first-of-type{border-top:none}
+    .grid dt,.grid dd{
+      margin:0;
+      padding:12px 14px;
+      font-size:.93rem;
+    }
+    .grid dt{
+      background:#fbfdff;
+      border-right:1px solid var(--line);
+      color:#3d4f6a;
+      font-weight:700;
+    }
+    .grid dd{
+      color:#1d2f4a;
+      word-break:break-word;
+    }
+
+    @media (max-width:520px){
+      .grid{grid-template-columns:1fr}
+      .grid dt{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+    }
+
+    .footer{
+      border-top:1px dashed var(--line);
+      margin-top:14px;
+      padding-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:.82rem;
+    }
+
+    .tag{
+      border:1px solid var(--line);
+      background:#f9fcff;
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .disclaimer{
+      margin-top:14px;
+      padding:12px;
+      border:1px solid #ffe1a8;
+      background:#fff8e8;
+      color:#7c5a11;
+      border-radius:12px;
+      font-size:.82rem;
+      line-height:1.45;
+    }
+
+    .siteFooter{
+      text-align:center;
+      margin-top:14px;
+      color:#70809b;
+      font-size:.78rem;
+    }
+
+    .siteFooter a{
+      color:var(--tek-blue);
+      text-decoration:none;
+      font-weight:700;
+    }
+    .siteFooter a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Digital employee ID badge">
+      <header class="topbar">
+        <div class="brand">
+          <div class="shield" aria-hidden="true">TP</div>
+          <div>
+            <h1>Tek-Pak Incorporated</h1>
+            <p>Digital Employee Identification</p>
+          </div>
+        </div>
+        <div class="status" aria-label="Badge status">ACTIVE</div>
+      </header>
+
+      <div class="main">
+        <aside class="photoCard" aria-label="Employee headshot and badge status">
+          <div class="photoWrap">
+            <img src="reaster_headshot.png" alt="Headshot of Ron Easter" />
+          </div>
+          <div class="photoMeta">
+            <span>Employee Photo</span>
+            <span class="chip">Verified</span>
+          </div>
+        </aside>
+
+        <section class="info" aria-label="Employee information">
+          <div class="infoHead">
+            <h2 class="name">Ron Easter</h2>
+            <p class="title">Technician / Operations Support</p>
+          </div>
+
+          <dl>
+            <div class="grid">
+              <dt>Company</dt>
+              <dd>Tek-Pak Incorporated</dd>
+            </div>
+            <div class="grid">
+              <dt>Department</dt>
+              <dd>Operations / Refurbishment</dd>
+            </div>
+            <div class="grid">
+              <dt>Employee ID</dt>
+              <dd>TP-RON-0001</dd>
+            </div>
+            <div class="grid">
+              <dt>Badge Type</dt>
+              <dd>Employee Access Credential</dd>
+            </div>
+            <div class="grid">
+              <dt>Shift</dt>
+              <dd>Second Shift (Mon–Thu, 5:00 PM – 11:00 PM)</dd>
+            </div>
+            <div class="grid">
+              <dt>Issued</dt>
+              <dd><time datetime="2026-02-09">February 9, 2026</time></dd>
+            </div>
+            <div class="grid">
+              <dt>Contact</dt>
+              <dd>
+                <a href="mailto:info@tek-pak.com" style="color:#0b5fb3;font-weight:700;text-decoration:none;">info@tek-pak.com</a>
+              </dd>
+            </div>
+          </dl>
+
+          <div class="footer" aria-label="Badge attributes">
+            <span class="tag">On-site Access</span>
+            <span class="tag">Company Property Handling</span>
+            <span class="tag">Digital Verification Enabled</span>
+          </div>
+
+          <div class="disclaimer">
+            This digital badge is the property of Tek-Pak Incorporated and is intended for identification and access verification only.
+            If found, or if status appears inactive/suspended, please contact Tek-Pak immediately.
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <p class="siteFooter">
+      © <span id="year"></span> Tek-Pak Incorporated • Powered by GitHub Pages
+    </p>
+  </main>
+
+  <script>
+    // Auto-year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
