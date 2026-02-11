@@ -1,6 +1,7 @@
 <!-- =========================
-TEK-PAK V2 ULTRA-POP HEADER
-Palette: Silver + Lime Green (No Blue)
+TEK-PAK V2 ULTRA-POP HEADER (CLEANED)
+- No brand/slogan text
+- No logo box/frame
 Logo file: tekpaklogo.png
 ========================= -->
 
@@ -9,17 +10,9 @@ Logo file: tekpaklogo.png
   <div class="tp-header-sheen"></div>
 
   <div class="tp-header-inner">
-    <!-- Brand -->
+    <!-- Brand (logo only) -->
     <a href="/" class="tp-brand" aria-label="Tek-Pak Home">
-      <div class="tp-logo-wrap">
-        <span class="tp-logo-glow"></span>
-        <img src="tekpaklogo.png" alt="Tek-Pak Logo" class="tp-logo" />
-      </div>
-
-      <div class="tp-brand-text">
-        <span class="tp-brand-name">TEK-PAK INC.</span>
-        <span class="tp-brand-tag">Raising Your Signal at Fair Prices</span>
-      </div>
+      <img src="tekpaklogo.png" alt="Tek-Pak Logo" class="tp-logo" />
     </a>
 
     <!-- Mobile Toggle -->
@@ -67,7 +60,6 @@ Logo file: tekpaklogo.png
     /* Lime accent */
     --tp-lime:#97ff3f;
     --tp-lime-deep:#69d020;
-    --tp-lime-soft:#d9ffb5;
 
     --tp-line:#e5eaf1;
     --tp-shadow-soft:0 8px 24px rgba(15,23,42,.10);
@@ -89,7 +81,6 @@ Logo file: tekpaklogo.png
     overflow:clip;
   }
 
-  /* Lime accent bar */
   .tp-header-accent{
     position:absolute;
     left:0; right:0; bottom:0;
@@ -98,7 +89,6 @@ Logo file: tekpaklogo.png
     filter:saturate(1.1);
   }
 
-  /* subtle moving metallic sheen on top edge */
   .tp-header-sheen{
     position:absolute;
     top:0; left:-40%;
@@ -129,117 +119,26 @@ Logo file: tekpaklogo.png
   .tp-brand{
     display:flex;
     align-items:center;
-    gap:14px;
     text-decoration:none;
-    min-width:0;
+    flex:0 0 auto;
   }
 
-  /* 3D silver logo frame (larger) */
-  .tp-logo-wrap{
-    position:relative;
-    width:82px;
-    height:82px;
-    border-radius:20px;
-    background:
-      linear-gradient(160deg,#ffffff 0%, var(--tp-silver-1) 35%, var(--tp-silver-2) 100%);
-    border:1px solid var(--tp-silver-3);
-    box-shadow:
-      inset 0 2px 0 rgba(255,255,255,.95),
-      inset 0 -5px 12px rgba(91,102,120,.12),
-      0 12px 24px rgba(91,102,120,.18),
-      0 3px 10px rgba(15,23,42,.09);
-    display:grid;
-    place-items:center;
-    isolation:isolate;
-  }
-
-  .tp-logo-glow{
-    position:absolute;
-    inset:8px;
-    border-radius:14px;
-    background:radial-gradient(circle at 50% 50%, rgba(151,255,63,.28), rgba(151,255,63,0) 70%);
-    filter:blur(2px);
-    z-index:0;
-    pointer-events:none;
-    animation:tpGlow 2.8s ease-in-out infinite;
-  }
-
-  @keyframes tpGlow{
-    0%,100%{opacity:.45; transform:scale(1)}
-    50%{opacity:.9; transform:scale(1.06)}
-  }
-
+  /* Logo only — no box/frame */
   .tp-logo{
-    position:relative;
-    z-index:1;
-    width:68px;
-    height:68px;
+    width:78px;
+    height:78px;
     object-fit:contain;
-    filter:drop-shadow(0 4px 5px rgba(15,23,42,.22));
+    filter:
+      drop-shadow(0 6px 10px rgba(15,23,42,.20))
+      drop-shadow(0 0 10px rgba(151,255,63,.20));
+    transition:transform .2s ease, filter .2s ease;
   }
 
-  .tp-brand-text{
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-    line-height:1.05;
-  }
-
-  /* Metallic + animated shimmer text */
-  .tp-brand-name{
-    position:relative;
-    font-weight:900;
-    font-size:1.54rem;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    white-space:nowrap;
-
-    background:linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #f2f5fa 20%,
-      #cfd7e2 48%,
-      #f8fbff 68%,
-      #aab4c2 100%
-    );
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-
-    text-shadow:
-      0 1px 0 rgba(255,255,255,.9),
-      0 4px 12px rgba(91,102,120,.20);
-  }
-
-  .tp-brand-name::after{
-    content:"";
-    position:absolute;
-    left:-30%;
-    top:0;
-    width:28%;
-    height:100%;
-    background:linear-gradient(100deg, transparent 0%, rgba(255,255,255,.95) 50%, transparent 100%);
-    transform:skewX(-18deg);
-    animation:tpTextShimmer 4.6s linear infinite;
-    pointer-events:none;
-    mix-blend-mode:screen;
-  }
-
-  @keyframes tpTextShimmer{
-    0%{left:-30%}
-    100%{left:125%}
-  }
-
-  .tp-brand-tag{
-    margin-top:6px;
-    font-size:.88rem;
-    font-weight:800;
-    letter-spacing:.25px;
-    color:var(--tp-steel);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:480px;
+  .tp-brand:hover .tp-logo{
+    transform:translateY(-1px) scale(1.02);
+    filter:
+      drop-shadow(0 8px 14px rgba(15,23,42,.24))
+      drop-shadow(0 0 14px rgba(151,255,63,.32));
   }
 
   .tp-nav{ margin-left:auto; }
@@ -253,7 +152,6 @@ Logo file: tekpaklogo.png
     gap:8px;
   }
 
-  /* 3D silver pills with lime sweep */
   .tp-menu a,
   .tp-dropdown-btn{
     position:relative;
@@ -305,9 +203,7 @@ Logo file: tekpaklogo.png
   }
 
   .tp-menu a:hover::before,
-  .tp-dropdown-btn:hover::before{
-    left:140%;
-  }
+  .tp-dropdown-btn:hover::before{ left:140%; }
 
   .tp-menu a:active,
   .tp-dropdown-btn:active{
@@ -320,8 +216,7 @@ Logo file: tekpaklogo.png
   .tp-menu a.active{
     border-color:#83e92f;
     color:#0b1304;
-    background:
-      linear-gradient(180deg,#eaffd7 0%, #bbff79 35%, #97ff3f 70%, #79dc29 100%);
+    background:linear-gradient(180deg,#eaffd7 0%, #bbff79 35%, #97ff3f 70%, #79dc29 100%);
     text-shadow:0 1px 0 rgba(255,255,255,.55);
     box-shadow:
       inset 0 1px 0 rgba(255,255,255,.8),
@@ -329,7 +224,6 @@ Logo file: tekpaklogo.png
       0 12px 20px rgba(121,220,41,.35);
   }
 
-  /* Dropdown */
   .tp-dropdown{ position:relative; }
 
   .tp-submenu{
@@ -365,7 +259,6 @@ Logo file: tekpaklogo.png
     transform:none;
   }
 
-  /* Mobile toggle */
   .tp-menu-toggle{
     display:none;
     margin-left:auto;
@@ -388,10 +281,8 @@ Logo file: tekpaklogo.png
   }
 
   @media (max-width:980px){
-    .tp-brand-name{font-size:1.24rem}
-    .tp-brand-tag{max-width:260px;font-size:.78rem}
-
     .tp-menu-toggle{display:block}
+
     .tp-nav{
       position:absolute;
       left:0; right:0; top:100%;
@@ -422,9 +313,7 @@ Logo file: tekpaklogo.png
   }
 
   @media (max-width:640px){
-    .tp-logo-wrap{width:70px;height:70px;border-radius:16px}
-    .tp-logo{width:58px;height:58px}
-    .tp-brand-tag{display:none}
+    .tp-logo{width:64px;height:64px}
   }
 </style>
 
