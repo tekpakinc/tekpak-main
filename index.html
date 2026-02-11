@@ -1,14 +1,17 @@
-
 <!-- =========================
-TEK-PAK Reusable Header + Menu
-Save logo file as: tekpaklogo.png
+TEK-PAK Premium 3D Header + Menu
+Logo file: tekpaklogo.png
 ========================= -->
 
 <header class="tp-header">
+  <div class="tp-header-glow"></div>
+
   <div class="tp-header-inner">
     <!-- Brand -->
     <a href="/" class="tp-brand" aria-label="Tek-Pak Home">
-      <img src="tekpaklogo.png" alt="Tek-Pak Logo" class="tp-logo" />
+      <div class="tp-logo-wrap">
+        <img src="tekpaklogo.png" alt="Tek-Pak Logo" class="tp-logo" />
+      </div>
       <div class="tp-brand-text">
         <span class="tp-brand-name">TEK-PAK INC.</span>
         <span class="tp-brand-tag">Raising Your Signal at Fair Prices</span>
@@ -23,13 +26,13 @@ Save logo file as: tekpaklogo.png
     <!-- Nav -->
     <nav id="tpNav" class="tp-nav" aria-label="Primary">
       <ul class="tp-menu">
-        <!-- ========= CUSTOMIZE MENU ITEMS HERE ========= -->
+        <!-- ===== CUSTOMIZE THESE ===== -->
         <li><a href="/index.html" class="active">Home</a></li>
         <li><a href="/about.html">About</a></li>
         <li><a href="/services.html">Services</a></li>
         <li><a href="/store.html">Store</a></li>
         <li><a href="/contact.html">Contact</a></li>
-        <!-- Optional dropdown example -->
+
         <li class="tp-dropdown">
           <button class="tp-dropdown-btn" aria-expanded="false">More</button>
           <ul class="tp-submenu">
@@ -38,7 +41,7 @@ Save logo file as: tekpaklogo.png
             <li><a href="/support.html">Support</a></li>
           </ul>
         </li>
-        <!-- ============================================= -->
+        <!-- =========================== -->
       </ul>
     </nav>
   </div>
@@ -46,80 +49,114 @@ Save logo file as: tekpaklogo.png
 
 <style>
   :root{
-    --tp-blue:#1f66c2;         /* medium blue */
-    --tp-yellow:#ffd335;       /* yellow */
+    --tp-blue:#1f66c2;
+    --tp-blue-deep:#0e4ea8;
+    --tp-yellow:#ffd335;
     --tp-dark:#0f172a;
-    --tp-light:#f8fafc;
-    --tp-text:#0b1220;
-    --tp-border:rgba(15,23,42,.12);
-    --tp-shadow:0 8px 24px rgba(2,8,23,.10);
+    --tp-text:#111827;
+    --tp-muted:#475569;
+    --tp-line:#e2e8f0;
+    --tp-white:#ffffff;
+    --tp-shadow-soft:0 8px 24px rgba(2,8,23,.10);
+    --tp-shadow-3d:0 14px 32px rgba(2,8,23,.14), 0 3px 10px rgba(2,8,23,.08);
   }
 
-  *{box-sizing:border-box}
-  body{margin:0}
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
 
   .tp-header{
     position:sticky;
     top:0;
     z-index:1000;
-    background:linear-gradient(90deg,var(--tp-blue),#2a74d8);
-    border-bottom:4px solid var(--tp-yellow);
-    box-shadow:var(--tp-shadow);
+    background:var(--tp-white); /* White background per request */
+    border-bottom:1px solid var(--tp-line);
+    box-shadow:var(--tp-shadow-soft);
+    overflow:clip;
+  }
+
+  /* subtle branded glow sweep */
+  .tp-header-glow{
+    position:absolute;
+    inset:auto -10% 0 -10%;
+    height:5px;
+    background:linear-gradient(90deg,var(--tp-blue),var(--tp-yellow),var(--tp-blue));
+    filter:saturate(1.1);
+    opacity:.95;
   }
 
   .tp-header-inner{
-    max-width:1200px;
+    max-width:1240px;
     margin:0 auto;
-    padding:10px 16px;
+    padding:12px 18px;
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:18px;
+    position:relative;
   }
 
   .tp-brand{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:14px;
     text-decoration:none;
-    color:#fff;
     min-width:0;
   }
 
+  /* Larger + more 3D logo */
+  .tp-logo-wrap{
+    width:76px;
+    height:76px;
+    border-radius:18px;
+    background:
+      radial-gradient(circle at 25% 18%, #ffffff 0%, #f8fbff 38%, #edf4ff 100%);
+    border:1px solid #dbe7ff;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.85),
+      inset 0 -4px 10px rgba(31,102,194,.08),
+      0 10px 20px rgba(31,102,194,.15),
+      0 2px 8px rgba(2,8,23,.08);
+    display:grid;
+    place-items:center;
+    transform:translateZ(0);
+  }
+
   .tp-logo{
-    width:48px;
-    height:48px;
+    width:64px;
+    height:64px;
     object-fit:contain;
-    background:#fff;
-    border-radius:10px;
-    padding:4px;
-    border:1px solid rgba(255,255,255,.35);
+    filter:drop-shadow(0 3px 4px rgba(2,8,23,.22));
   }
 
   .tp-brand-text{
     display:flex;
     flex-direction:column;
     min-width:0;
+    line-height:1.05;
   }
 
   .tp-brand-name{
-    font-weight:800;
-    letter-spacing:.5px;
-    line-height:1.1;
+    font-weight:900;
+    font-size:1.48rem;
+    letter-spacing:.9px;
+    text-transform:uppercase;
+    color:var(--tp-text);
+    text-shadow:0 1px 0 #fff, 0 3px 10px rgba(31,102,194,.14);
     white-space:nowrap;
   }
 
   .tp-brand-tag{
-    font-size:.78rem;
-    opacity:.9;
+    margin-top:5px;
+    font-size:.86rem;
+    font-weight:700;
+    letter-spacing:.25px;
+    color:var(--tp-muted);
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-    max-width:360px;
+    max-width:460px;
   }
 
-  .tp-nav{
-    margin-left:auto;
-  }
+  .tp-nav{ margin-left:auto; }
 
   .tp-menu{
     list-style:none;
@@ -127,69 +164,108 @@ Save logo file as: tekpaklogo.png
     padding:0;
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:8px;
   }
 
+  /* 3D menu pills */
   .tp-menu a,
   .tp-dropdown-btn{
-    color:#fff;
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     text-decoration:none;
-    font-weight:600;
+    color:#0f172a;
+    font-weight:800;
     font-size:.95rem;
-    padding:10px 12px;
-    border-radius:10px;
-    border:1px solid transparent;
-    background:transparent;
+    letter-spacing:.2px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid #dbe3f1;
+    background:linear-gradient(180deg,#ffffff 0%, #f7faff 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.9),
+      0 2px 0 rgba(15,23,42,.05),
+      0 6px 14px rgba(15,23,42,.06);
+    transition:.22s ease;
     cursor:pointer;
-    font:inherit;
+    font-family:inherit;
   }
 
   .tp-menu a:hover,
   .tp-dropdown-btn:hover{
-    background:rgba(255,255,255,.12);
-    border-color:rgba(255,255,255,.25);
+    transform:translateY(-1px);
+    border-color:#c9daf9;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.95),
+      0 4px 0 rgba(15,23,42,.06),
+      0 10px 20px rgba(31,102,194,.16);
+  }
+
+  .tp-menu a:active,
+  .tp-dropdown-btn:active{
+    transform:translateY(1px);
+    box-shadow:
+      inset 0 2px 6px rgba(15,23,42,.08),
+      0 1px 0 rgba(15,23,42,.05);
   }
 
   .tp-menu a.active{
-    background:var(--tp-yellow);
-    color:var(--tp-dark);
-    border-color:rgba(0,0,0,.12);
+    color:#0b1220;
+    border-color:#e8c11a;
+    background:
+      linear-gradient(180deg,#ffe57a 0%, #ffd335 55%, #f2bf0a 100%);
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.7),
+      0 3px 0 rgba(166,126,0,.28),
+      0 10px 18px rgba(255,211,53,.38);
   }
 
   /* Dropdown */
-  .tp-dropdown{position:relative}
+  .tp-dropdown{ position:relative; }
   .tp-submenu{
     position:absolute;
-    top:calc(100% + 8px);
+    top:calc(100% + 10px);
     right:0;
-    min-width:180px;
+    min-width:210px;
     list-style:none;
     margin:0;
     padding:8px;
-    background:#fff;
-    border:1px solid var(--tp-border);
-    border-radius:12px;
-    box-shadow:var(--tp-shadow);
+    background:#ffffff;
+    border:1px solid #dbe3f1;
+    border-radius:14px;
+    box-shadow:var(--tp-shadow-3d);
     display:none;
   }
-  .tp-submenu a{
-    color:var(--tp-text);
-    display:block;
-    padding:8px 10px;
-    border-radius:8px;
-  }
-  .tp-submenu a:hover{background:#f1f5f9}
-  .tp-dropdown.open .tp-submenu{display:block}
+  .tp-dropdown.open .tp-submenu{ display:block; }
 
-  /* Mobile button */
+  .tp-submenu a{
+    display:block;
+    color:#0f172a;
+    border-radius:10px;
+    padding:9px 10px;
+    font-weight:700;
+    border:1px solid transparent;
+    background:transparent;
+    box-shadow:none;
+  }
+  .tp-submenu a:hover{
+    background:#f3f8ff;
+    border-color:#dbeafe;
+    transform:none;
+  }
+
+  /* Mobile toggle */
   .tp-menu-toggle{
     display:none;
     margin-left:auto;
-    background:rgba(255,255,255,.1);
-    border:1px solid rgba(255,255,255,.25);
-    border-radius:10px;
-    width:44px;
+    width:46px;
     height:40px;
+    border-radius:12px;
+    border:1px solid #dbe3f1;
+    background:linear-gradient(180deg,#ffffff,#f4f8ff);
+    box-shadow:0 4px 12px rgba(2,8,23,.08);
     padding:8px;
     cursor:pointer;
   }
@@ -197,53 +273,48 @@ Save logo file as: tekpaklogo.png
     display:block;
     height:2px;
     margin:5px 0;
-    background:#fff;
+    background:#1e3a8a;
     border-radius:2px;
   }
 
-  @media (max-width: 900px){
-    .tp-brand-tag{display:none}
+  @media (max-width:960px){
+    .tp-brand-name{ font-size:1.2rem; }
+    .tp-brand-tag{ max-width:260px; font-size:.78rem; }
 
-    .tp-menu-toggle{display:block}
+    .tp-menu-toggle{ display:block; }
     .tp-nav{
       position:absolute;
       left:0; right:0; top:100%;
       background:#fff;
-      border-bottom:1px solid var(--tp-border);
-      box-shadow:var(--tp-shadow);
+      border-top:1px solid #edf2fb;
+      border-bottom:1px solid var(--tp-line);
+      box-shadow:var(--tp-shadow-3d);
       max-height:0;
       overflow:hidden;
-      transition:max-height .25s ease;
+      transition:max-height .28s ease;
     }
-    .tp-nav.open{max-height:480px}
+    .tp-nav.open{ max-height:560px; }
 
     .tp-menu{
+      padding:12px;
       flex-direction:column;
       align-items:stretch;
-      gap:0;
-      padding:10px;
-    }
-    .tp-menu a,
-    .tp-dropdown-btn{
-      color:var(--tp-text);
-      border-radius:10px;
-    }
-    .tp-menu a:hover,
-    .tp-dropdown-btn:hover{background:#eef2ff}
-    .tp-menu a.active{
-      background:var(--tp-yellow);
-      color:#111827;
+      gap:8px;
     }
 
     .tp-dropdown .tp-submenu{
       position:static;
-      display:none;
-      margin-top:6px;
-      background:#f8fafc;
+      margin-top:8px;
       box-shadow:none;
-      border-color:#e2e8f0;
+      border-color:#e7eefb;
+      background:#f8fbff;
     }
-    .tp-dropdown.open .tp-submenu{display:block}
+  }
+
+  @media (max-width:640px){
+    .tp-logo-wrap{ width:66px; height:66px; border-radius:16px; }
+    .tp-logo{ width:56px; height:56px; }
+    .tp-brand-tag{ display:none; }
   }
 </style>
 
@@ -260,24 +331,26 @@ Save logo file as: tekpaklogo.png
       });
     }
 
-    // Dropdown support
-    document.querySelectorAll('.tp-dropdown').forEach(dd => {
+    // Dropdown behavior
+    document.querySelectorAll('.tp-dropdown').forEach((dd) => {
       const btn = dd.querySelector('.tp-dropdown-btn');
       if(!btn) return;
 
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const isOpen = dd.classList.contains('open');
-        document.querySelectorAll('.tp-dropdown.open').forEach(x => x.classList.remove('open'));
-        if(!isOpen) dd.classList.add('open');
-        btn.setAttribute('aria-expanded', String(!isOpen));
+        const wasOpen = dd.classList.contains('open');
+        document.querySelectorAll('.tp-dropdown.open').forEach(el => {
+          if(el !== dd) el.classList.remove('open');
+        });
+        dd.classList.toggle('open', !wasOpen);
+        btn.setAttribute('aria-expanded', String(!wasOpen));
       });
     });
 
-    // Close dropdown if clicking outside
+    // Click outside closes dropdowns
     document.addEventListener('click', (e) => {
       if(!e.target.closest('.tp-dropdown')){
-        document.querySelectorAll('.tp-dropdown.open').forEach(x => x.classList.remove('open'));
+        document.querySelectorAll('.tp-dropdown.open').forEach(el => el.classList.remove('open'));
       }
     });
   })();
