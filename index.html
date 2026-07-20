@@ -3,42 +3,419 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="TEK-PAK Inc. develops software, operates technology-focused brands, and accepts electronics for responsible e-waste recycling." />
-  <title>TEK-PAK Inc. | Software, Technology Projects & E-Waste Recycling</title>
+  <meta name="description" content="TEK-PAK Inc. develops business software, operates technology-focused brands, and supports responsible electronics recycling in North Carolina." />
+  <title>TEK-PAK Inc. | Software Development & Technology Ventures</title>
   <style>
-    :root{--navy:#071427;--navy2:#0b203b;--blue:#2563eb;--blue-soft:#74a7ff;--lime:#9bff2e;--white:#fff;--ink:#eaf2ff;--muted:#afbdd2;--line:rgba(255,255,255,.12);--glass:rgba(255,255,255,.07);--shadow:0 24px 70px rgba(0,0,0,.35);--radius:24px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--navy);color:var(--ink);line-height:1.6}a{color:inherit}.site-shell{min-height:100vh;overflow:hidden;background:radial-gradient(circle at 8% 4%,rgba(37,99,235,.28),transparent 30%),radial-gradient(circle at 92% 14%,rgba(155,255,46,.15),transparent 30%),linear-gradient(180deg,#071427 0%,#0a1a31 48%,#071427 100%)}
-    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(5,16,31,.84);border-bottom:1px solid var(--line)}.nav-wrap{width:min(1180px,calc(100% - 32px));min-height:78px;margin:auto;display:flex;align-items:center;gap:24px}.brand{display:flex;align-items:center;text-decoration:none}.brand img{width:78px;height:78px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.25))}.nav-links{margin-left:auto;display:flex;gap:8px;align-items:center}.nav-links a{text-decoration:none;font-weight:700;color:#dbe8fb;padding:10px 13px;border-radius:12px;transition:.2s ease}.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}.nav-cta{border:1px solid rgba(155,255,46,.45);background:rgba(155,255,46,.10);color:var(--lime)!important}.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--glass);color:#fff;font-size:1.25rem}.container{width:min(1180px,calc(100% - 32px));margin:auto}
-    .hero{min-height:720px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:54px;padding:82px 0 76px}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(155,255,46,.32);background:rgba(155,255,46,.08);border-radius:999px;padding:7px 12px;color:var(--lime);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 18px var(--lime)}h1{margin:20px 0 18px;font-size:clamp(3rem,7vw,6.2rem);line-height:.96;letter-spacing:-.055em}h1 span{display:block;color:transparent;background:linear-gradient(90deg,var(--lime),#d8ffaf 48%,var(--blue-soft));-webkit-background-clip:text;background-clip:text}.hero-copy>p{max-width:700px;font-size:clamp(1.05rem,1.7vw,1.28rem);color:var(--muted);margin:0}.hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 19px;border-radius:14px;text-decoration:none;font-weight:850;border:1px solid transparent;transition:.2s ease}.btn:hover{transform:translateY(-2px)}.btn-primary{color:#102100;background:linear-gradient(180deg,#c9ff8c,var(--lime));box-shadow:0 15px 40px rgba(155,255,46,.22)}.btn-secondary{color:#fff;border-color:var(--line);background:rgba(255,255,255,.06)}.hero-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}.hero-tags span{border:1px solid var(--line);background:rgba(255,255,255,.045);color:#c7d4e7;padding:7px 10px;border-radius:999px;font-size:.84rem}
-    .hero-visual{position:relative;min-height:530px;display:grid;place-items:center}.orbit{width:min(470px,100%);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.13);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.14),transparent 35%),radial-gradient(circle at 65% 65%,rgba(155,255,46,.14),transparent 30%),rgba(255,255,255,.025);box-shadow:inset 0 0 80px rgba(37,99,235,.15),var(--shadow);display:grid;place-items:center;position:relative}.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(155,255,46,.25);inset:9%}.orbit:after{inset:22%;border-color:rgba(116,167,255,.28)}.core{width:43%;aspect-ratio:1;border-radius:26px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.32),rgba(155,255,46,.13));border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 60px rgba(0,0,0,.35);font-size:clamp(2rem,5vw,4rem);font-weight:900}.float-card{position:absolute;width:190px;padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(7,20,39,.82);backdrop-filter:blur(16px);box-shadow:var(--shadow)}.float-card strong{display:block;color:#fff}.float-card span{display:block;color:var(--muted);font-size:.82rem;margin-top:3px}.fc-one{top:6%;right:-2%}.fc-two{left:-5%;bottom:11%}.fc-three{right:1%;bottom:3%}
-    .section{padding:88px 0}.section-head{max-width:780px;margin-bottom:34px}.section-head h2{margin:12px 0;font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;letter-spacing:-.035em}.section-head p{color:var(--muted);font-size:1.05rem;margin:0}.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.service-card{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(160deg,rgba(255,255,255,.085),rgba(255,255,255,.025));box-shadow:0 18px 50px rgba(0,0,0,.18);transition:.22s ease}.service-card:hover{transform:translateY(-5px);border-color:rgba(155,255,46,.35)}.service-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:rgba(155,255,46,.12);border:1px solid rgba(155,255,46,.25);font-size:1.3rem}.service-card h3{margin:18px 0 9px;font-size:1.22rem}.service-card p{margin:0;color:var(--muted)}
-    .projects-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}.project-card{grid-column:span 2;min-height:280px;display:flex;flex-direction:column;padding:26px;border:1px solid var(--line);border-radius:var(--radius);text-decoration:none;background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.025));box-shadow:0 18px 50px rgba(0,0,0,.2);transition:.24s ease;position:relative;overflow:hidden}.project-card:nth-child(4){grid-column:2/span 2}.project-card:nth-child(5){grid-column:4/span 2}.project-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-80px;top:-90px;background:var(--accent,rgba(155,255,46,.18));filter:blur(4px)}.project-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.28);box-shadow:0 26px 70px rgba(0,0,0,.3)}.project-mark{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.45rem;font-weight:900;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}.project-card h3{margin:20px 0 8px;font-size:1.35rem}.project-card p{margin:0;color:var(--muted)}.project-link{margin-top:auto;padding-top:24px;font-weight:850;color:var(--project-color,var(--lime))}.hotflash{--accent:rgba(255,53,119,.25);--project-color:#ff7aa8}.recycling-brand{--accent:rgba(155,255,46,.22);--project-color:var(--lime)}.surplus{--accent:rgba(37,99,235,.28);--project-color:#84adff}.rc{--accent:rgba(255,175,46,.23);--project-color:#ffc665}.box{--accent:rgba(166,91,255,.25);--project-color:#c5a0ff}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel{padding:34px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.05)}.panel.software{background:linear-gradient(150deg,rgba(37,99,235,.19),rgba(255,255,255,.04))}.panel.recycling{background:linear-gradient(150deg,rgba(155,255,46,.15),rgba(255,255,255,.04))}.panel h3{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.05;margin:10px 0 12px}.panel p{color:var(--muted)}.panel ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}.panel li{display:flex;gap:10px;color:#d7e2f1}.panel li:before{content:"✓";color:var(--lime);font-weight:900}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:step}.process-card{counter-increment:step;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.035)}.process-card:before{content:"0" counter(step);color:var(--lime);font-weight:900}.process-card h3{margin:12px 0 7px}.process-card p{margin:0;color:var(--muted);font-size:.94rem}.cta{margin:70px auto 0;padding:38px;display:flex;justify-content:space-between;gap:28px;align-items:center;border:1px solid rgba(155,255,46,.25);border-radius:30px;background:linear-gradient(120deg,rgba(155,255,46,.12),rgba(37,99,235,.18)),rgba(255,255,255,.04);box-shadow:var(--shadow)}.cta h2{margin:0 0 7px;font-size:clamp(1.8rem,3vw,3rem);line-height:1.05}.cta p{margin:0;color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:90px;padding:34px 0 42px;color:#8fa1ba}.footer-row{display:flex;align-items:center;justify-content:space-between;gap:20px}.footer-row strong{color:#dce7f7}
-    @media(max-width:920px){.menu-btn{display:block}.nav-links{position:absolute;top:78px;left:16px;right:16px;display:none;flex-direction:column;align-items:stretch;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(5,16,31,.97)}.nav-links.open{display:flex}.hero{grid-template-columns:1fr;padding-top:62px}.services-grid{grid-template-columns:repeat(2,1fr)}.projects-grid{grid-template-columns:repeat(2,1fr)}.project-card,.project-card:nth-child(4),.project-card:nth-child(5){grid-column:auto}.split{grid-template-columns:1fr}.process{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:620px){.brand img{width:62px;height:62px}.nav-wrap{min-height:68px}.nav-links{top:68px}.hero{min-height:auto;padding:50px 0 40px}h1{font-size:clamp(2.8rem,16vw,4.6rem)}.hero-visual{min-height:410px}.float-card{width:160px;padding:13px}.services-grid,.projects-grid,.process{grid-template-columns:1fr}.section{padding:64px 0}.panel,.cta{padding:26px}.cta,.footer-row{flex-direction:column;align-items:flex-start}}
+    :root{
+      --blue:#2563eb;
+      --blue-dark:#153a73;
+      --blue-soft:#edf4ff;
+      --yellow:#f4c542;
+      --yellow-soft:#fff8df;
+      --ink:#142033;
+      --muted:#637083;
+      --line:#dfe5ec;
+      --surface:#ffffff;
+      --surface-alt:#f6f8fb;
+      --shadow:0 18px 50px rgba(18,34,56,.09);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.6;
+    }
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    .container{width:min(1180px,calc(100% - 36px));margin:0 auto}
+
+    .topbar{
+      background:var(--blue-dark);
+      color:#dbe7f7;
+      font-size:.86rem;
+    }
+    .topbar .container{
+      min-height:36px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+    .topbar strong{color:#fff}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-wrap{
+      min-height:82px;
+      display:flex;
+      align-items:center;
+      gap:26px;
+    }
+    .brand{display:flex;align-items:center;text-decoration:none}
+    .brand img{width:78px;height:78px;object-fit:contain}
+    .nav-links{margin-left:auto;display:flex;align-items:center;gap:4px}
+    .nav-links a{
+      text-decoration:none;
+      color:#2c3b50;
+      font-weight:700;
+      font-size:.94rem;
+      padding:10px 12px;
+      border-radius:8px;
+    }
+    .nav-links a:hover{background:var(--surface-alt);color:var(--blue-dark)}
+    .nav-cta{
+      margin-left:6px;
+      color:#fff!important;
+      background:var(--blue)!important;
+      padding-inline:16px!important;
+    }
+    .menu-btn{
+      display:none;
+      margin-left:auto;
+      border:1px solid var(--line);
+      background:#fff;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      font-size:1.2rem;
+    }
+
+    .hero{
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.96) 58%,rgba(246,248,251,.92) 100%),
+        linear-gradient(135deg,#fff,#eef4fb);
+      border-bottom:1px solid var(--line);
+    }
+    .hero-grid{
+      min-height:620px;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:70px;
+      align-items:center;
+      padding:82px 0;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--blue-dark);
+      font-weight:800;
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .eyebrow::before{content:"";width:26px;height:3px;background:var(--yellow)}
+    h1{
+      max-width:780px;
+      margin:18px 0 20px;
+      font-size:clamp(3rem,6vw,5.5rem);
+      line-height:.98;
+      letter-spacing:-.055em;
+      color:#13233a;
+    }
+    h1 span{color:var(--blue)}
+    .hero-copy p{
+      max-width:720px;
+      margin:0;
+      color:var(--muted);
+      font-size:clamp(1.05rem,1.6vw,1.22rem);
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:0 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 24px rgba(37,99,235,.18)}
+    .btn-secondary{background:#fff;color:var(--blue-dark);border-color:#cfd8e4}
+
+    .hero-panel{
+      background:#fff;
+      border:1px solid var(--line);
+      border-top:5px solid var(--yellow);
+      box-shadow:var(--shadow);
+      padding:30px;
+      border-radius:var(--radius);
+    }
+    .hero-panel h2{margin:0 0 10px;font-size:1.45rem}
+    .hero-panel p{margin:0;color:var(--muted)}
+    .summary-list{display:grid;gap:16px;margin-top:26px}
+    .summary-item{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start}
+    .summary-icon{
+      width:42px;height:42px;border-radius:10px;
+      display:grid;place-items:center;
+      background:var(--blue-soft);color:var(--blue-dark);font-weight:900;
+    }
+    .summary-item strong{display:block;color:#1b2a3d}
+    .summary-item span{display:block;color:var(--muted);font-size:.92rem;margin-top:2px}
+
+    .section{padding:90px 0}
+    .section.alt{background:var(--surface-alt);border-top:1px solid #edf0f4;border-bottom:1px solid #edf0f4}
+    .section-head{max-width:760px;margin-bottom:38px}
+    .section-head h2{margin:12px 0;font-size:clamp(2rem,4vw,3.4rem);line-height:1.06;letter-spacing:-.035em}
+    .section-head p{margin:0;color:var(--muted);font-size:1.05rem}
+
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:0 10px 24px rgba(18,34,56,.04);
+    }
+    .service-card h3{margin:16px 0 8px;font-size:1.18rem}
+    .service-card p{margin:0;color:var(--muted)}
+    .service-number{font-weight:900;color:var(--blue);font-size:.84rem;letter-spacing:.08em}
+
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .project-card{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      min-height:190px;
+      padding:26px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-left:5px solid var(--project-accent,var(--blue));
+      border-radius:var(--radius);
+      text-decoration:none;
+      box-shadow:0 10px 24px rgba(18,34,56,.04);
+      transition:.18s ease;
+    }
+    .project-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .project-card h3{margin:0 0 8px;font-size:1.3rem}
+    .project-card p{margin:0;color:var(--muted)}
+    .project-domain{display:block;margin-top:18px;color:var(--blue-dark);font-weight:800;font-size:.9rem}
+    .project-arrow{font-size:1.6rem;color:#8793a4;align-self:start}
+    .hotflash{--project-accent:#e74b79}.recycling-brand{--project-accent:#63a534}.surplus{--project-accent:#2563eb}.rc{--project-accent:#d88b24}.box{--project-accent:#8059b7}
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:stretch;
+    }
+    .feature-panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:32px;
+      background:#fff;
+    }
+    .feature-panel.highlight{background:var(--blue-dark);color:#fff;border-color:var(--blue-dark)}
+    .feature-panel h3{margin:10px 0 12px;font-size:1.7rem}
+    .feature-panel p{color:var(--muted);margin:0}
+    .feature-panel.highlight p{color:#cfdaea}
+    .feature-panel ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:11px}
+    .feature-panel li{display:flex;gap:10px}
+    .feature-panel li::before{content:"✓";color:var(--yellow);font-weight:900}
+
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:steps}
+    .process-card{counter-increment:steps;border-top:4px solid var(--blue);background:#fff;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px}
+    .process-card::before{content:"0" counter(steps);color:var(--blue);font-weight:900;font-size:.85rem}
+    .process-card h3{margin:12px 0 6px}
+    .process-card p{margin:0;color:var(--muted);font-size:.94rem}
+
+    .cta-band{
+      margin-top:70px;
+      background:var(--yellow-soft);
+      border:1px solid #ead88e;
+      border-radius:var(--radius);
+      padding:34px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .cta-band h2{margin:0 0 5px;font-size:1.9rem}
+    .cta-band p{margin:0;color:#6c6243}
+
+    footer{background:#14243a;color:#b9c5d5;padding:44px 0}
+    .footer-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:start}
+    .footer-grid strong{color:#fff}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px 18px}
+    .footer-links a{text-decoration:none;color:#d2dbe7}
+    .copyright{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:.86rem;color:#91a1b5}
+
+    @media(max-width:920px){
+      .menu-btn{display:block}
+      .nav-links{position:absolute;top:82px;left:18px;right:18px;display:none;flex-direction:column;align-items:stretch;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);padding:12px;border-radius:10px}
+      .nav-links.open{display:flex}
+      .nav-cta{margin-left:0}
+      .hero-grid{grid-template-columns:1fr;gap:38px;min-height:auto}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .projects-grid{grid-template-columns:1fr}
+      .process{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:620px){
+      .topbar .container{padding:8px 0;align-items:flex-start;flex-direction:column;gap:2px}
+      .nav-wrap{min-height:70px}.brand img{width:64px;height:64px}.nav-links{top:70px}
+      .hero-grid{padding:58px 0}
+      h1{font-size:clamp(2.8rem,15vw,4.5rem)}
+      .services-grid,.split,.process{grid-template-columns:1fr}
+      .section{padding:64px 0}
+      .cta-band,.footer-grid{display:flex;flex-direction:column;align-items:flex-start}
+      .footer-links{justify-content:flex-start}
+    }
   </style>
 </head>
 <body>
-<div class="site-shell">
-  <header class="site-header"><div class="nav-wrap"><a href="/index" class="brand" aria-label="TEK-PAK home"><img src="tekpaklogo.png" alt="TEK-PAK Inc. logo" /></a><button class="menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button><nav class="nav-links" aria-label="Primary navigation"><a href="#software">Software</a><a href="#projects">Our Projects</a><a href="#recycling">E-Waste</a><a href="#process">How We Work</a><a class="nav-cta" href="/contact">Contact</a></nav></div></header>
+  <div class="topbar">
+    <div class="container"><span><strong>TEK-PAK Inc.</strong> · Software, technology ventures, and responsible electronics recycling</span><span>North Carolina</span></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="/index" class="brand" aria-label="TEK-PAK home"><img src="tekpaklogo.png" alt="TEK-PAK Inc. logo" /></a>
+      <button class="menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#software">Software</a>
+        <a href="#projects">Our Projects</a>
+        <a href="#recycling">E-Waste</a>
+        <a href="#process">How We Work</a>
+        <a class="nav-cta" href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <section class="container hero">
-      <div class="hero-copy"><div class="eyebrow">Software-first. Earth-minded.</div><h1>We build software.<span>We recycle technology.</span></h1><p>TEK-PAK develops practical web applications, business tools, integrations, and automation—while building a growing family of technology-focused projects and continuing responsible local e-waste acceptance.</p><div class="hero-actions"><a class="btn btn-primary" href="/development">Start a Software Project →</a><a class="btn btn-secondary" href="#projects">Explore Our Projects</a></div><div class="hero-tags"><span>Custom Software</span><span>Web Applications</span><span>Automation</span><span>Technology Brands</span><span>E-Waste Recycling</span></div></div>
-      <div class="hero-visual" aria-hidden="true"><div class="orbit"><div class="core">&lt;/&gt;</div></div><div class="float-card fc-one"><strong>Software Development</strong><span>Built around real business needs.</span></div><div class="float-card fc-two"><strong>TEK-PAK Projects</strong><span>Connected brands. Different missions.</span></div><div class="float-card fc-three"><strong>E-Waste</strong><span>Keeping technology out of landfills.</span></div></div>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">TEK-PAK Incorporated</div>
+          <h1>Practical software.<br /><span>Responsible technology.</span></h1>
+          <p>TEK-PAK develops custom software and digital business tools, operates a growing group of technology-focused brands, and continues to support responsible electronics recycling throughout North Carolina.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/development">Discuss a Software Project</a>
+            <a class="btn btn-secondary" href="#projects">View TEK-PAK Projects</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="TEK-PAK focus areas">
+          <h2>What TEK-PAK does today</h2>
+          <p>Our company is focused on building useful digital products while continuing the environmental work that shaped our roots.</p>
+          <div class="summary-list">
+            <div class="summary-item"><div class="summary-icon">01</div><div><strong>Software Development</strong><span>Custom applications, automation, portals, and internal tools.</span></div></div>
+            <div class="summary-item"><div class="summary-icon">02</div><div><strong>Technology Ventures</strong><span>A portfolio of independently focused TEK-PAK projects and brands.</span></div></div>
+            <div class="summary-item"><div class="summary-icon">03</div><div><strong>Electronics Recycling</strong><span>Responsible local acceptance and recovery of retired technology.</span></div></div>
+          </div>
+        </aside>
+      </div>
     </section>
-    <section id="software" class="section container"><div class="section-head"><div class="eyebrow">What we build</div><h2>Software that solves the annoying stuff.</h2><p>From customer-facing platforms to internal tools, we focus on clean, useful technology that makes work easier—not software that needs a 47-page instruction manual and a ceremonial sacrifice.</p></div><div class="services-grid"><article class="service-card"><div class="service-icon">⌨</div><h3>Custom Software</h3><p>Purpose-built tools designed around your process, team, and goals.</p></article><article class="service-card"><div class="service-icon">◫</div><h3>Web Applications</h3><p>Responsive portals, dashboards, platforms, and online business systems.</p></article><article class="service-card"><div class="service-icon">⚙</div><h3>Workflow Automation</h3><p>Reduce repetitive tasks, connect systems, and keep information moving.</p></article><article class="service-card"><div class="service-icon">↔</div><h3>System Integration</h3><p>Bring separate tools and data sources together into a smoother operation.</p></article><article class="service-card"><div class="service-icon">▦</div><h3>Business Tools</h3><p>Inventory, scheduling, client portals, reporting, forms, and internal apps.</p></article><article class="service-card"><div class="service-icon">✦</div><h3>Modernization</h3><p>Refresh outdated websites and workflows without throwing away what still works.</p></article></div></section>
-    <section id="projects" class="section container"><div class="section-head"><div class="eyebrow">The TEK-PAK ecosystem</div><h2>Explore our projects.</h2><p>TEK-PAK develops and supports a growing collection of focused brands spanning automotive technology, recycling, electronics, hobbies, and curated subscription experiences.</p></div><div class="projects-grid">
-      <a class="project-card hotflash" href="https://hotflash.app" target="_blank" rel="noopener"><div class="project-mark">🔥</div><h3>Hot Flash App</h3><p>An automotive social platform built around vehicles, enthusiasts, builds, tuning, events, networking, and the culture that connects them.</p><span class="project-link">Visit HotFlash.app →</span></a>
-      <a class="project-card recycling-brand" href="https://ncelectronicrecycling.com" target="_blank" rel="noopener"><div class="project-mark">♻</div><h3>NC Electronic Recycling</h3><p>Local electronics acceptance and responsible recycling services designed to keep reusable materials and technology out of landfills.</p><span class="project-link">Visit NC Electronic Recycling →</span></a>
-      <a class="project-card surplus" href="https://tekpakinc.store" target="_blank" rel="noopener"><div class="project-mark">▣</div><h3>TEK-PAK Surplus Store</h3><p>Affordable surplus, refurbished, and specialty electronics sourced through TEK-PAK’s technology and recycling operations.</p><span class="project-link">Shop TEK-PAK Surplus →</span></a>
-      <a class="project-card rc" href="https://thercreserve.com" target="_blank" rel="noopener"><div class="project-mark">⚡</div><h3>The RC Reserve</h3><p>A destination for remote-control hobby products, parts, projects, and the people who enjoy building, driving, flying, and tinkering.</p><span class="project-link">Visit The RC Reserve →</span></a>
-      <a class="project-card box" href="https://tekpakbox.com" target="_blank" rel="noopener"><div class="project-mark">◇</div><h3>TEK Boxscriptions</h3><p>A TEK-PAK subscription-box project delivering curated technology-themed surprises, useful gear, and discovery in every box.</p><span class="project-link">Visit TEK Boxscriptions →</span></a>
-    </div></section>
-    <section id="recycling" class="section container"><div class="split"><article class="panel software"><div class="eyebrow">Primary focus</div><h3>Building better digital systems.</h3><p>Our software work is centered on practical outcomes: fewer manual steps, clearer information, better customer experiences, and systems that can grow with the business.</p><ul><li>Clear project goals and straightforward communication</li><li>Responsive, modern interfaces</li><li>Scalable architecture and integrations</li><li>Support after launch</li></ul></article><article class="panel recycling"><div class="eyebrow">Still green</div><h3>Responsible e-waste acceptance.</h3><p>We continue accepting electronics for responsible recycling, helping businesses and residents keep outdated technology out of landfills and in the proper recovery stream.</p><ul><li>Electronics acceptance</li><li>Responsible recycling pathways</li><li>Technology reuse whenever practical</li><li>Local environmental impact</li></ul><div class="hero-actions"><a class="btn btn-primary" href="https://ncelectronicrecycling.com" target="_blank" rel="noopener">View Recycling Information →</a></div></article></div></section>
-    <section id="process" class="section container"><div class="section-head"><div class="eyebrow">Simple process</div><h2>From messy idea to working solution.</h2><p>We keep projects understandable, collaborative, and grounded in what the software actually needs to accomplish.</p></div><div class="process"><article class="process-card"><h3>Discover</h3><p>We learn the problem, users, current workflow, and desired outcome.</p></article><article class="process-card"><h3>Design</h3><p>We map the experience, features, and technical approach before building.</p></article><article class="process-card"><h3>Develop</h3><p>We build, test, refine, and keep the project moving in visible steps.</p></article><article class="process-card"><h3>Launch</h3><p>We deploy the solution, support adoption, and plan the next improvements.</p></article></div><div class="cta"><div><h2>Have a process that needs fixing?</h2><p>Let’s turn it into software that actually helps.</p></div><a class="btn btn-primary" href="/contact">Talk With TEK-PAK →</a></div></section>
+
+    <section id="software" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Software Development</div>
+          <h2>Digital tools built around real operations.</h2>
+          <p>We design software around the way a business actually works—reducing friction, connecting information, and making everyday processes easier to manage.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><div class="service-number">01 · CUSTOM</div><h3>Custom Software</h3><p>Purpose-built systems designed for a specific workflow, customer experience, or operational need.</p></article>
+          <article class="service-card"><div class="service-number">02 · WEB</div><h3>Web Applications</h3><p>Responsive portals, dashboards, online tools, and customer-facing platforms.</p></article>
+          <article class="service-card"><div class="service-number">03 · AUTOMATION</div><h3>Workflow Automation</h3><p>Automated processes that reduce repetitive work and keep information moving accurately.</p></article>
+          <article class="service-card"><div class="service-number">04 · INTEGRATION</div><h3>System Integration</h3><p>Connections between software, data sources, forms, services, and internal systems.</p></article>
+          <article class="service-card"><div class="service-number">05 · BUSINESS</div><h3>Internal Business Tools</h3><p>Inventory systems, scheduling, reporting, client portals, and team management tools.</p></article>
+          <article class="service-card"><div class="service-number">06 · MODERNIZATION</div><h3>Digital Modernization</h3><p>Refreshing outdated websites and processes while preserving what still works well.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">TEK-PAK Projects</div>
+          <h2>A connected portfolio of technology-focused brands.</h2>
+          <p>Each project serves a different market, but all share the same focus on practical technology, community, reuse, or specialized digital experiences.</p>
+        </div>
+        <div class="projects-grid">
+          <a class="project-card hotflash" href="https://hotflash.app" target="_blank" rel="noopener"><div><h3>Hot Flash App</h3><p>An automotive social platform built around vehicles, builds, tuning, events, and enthusiast networking.</p><span class="project-domain">hotflash.app</span></div><span class="project-arrow">↗</span></a>
+          <a class="project-card recycling-brand" href="https://ncelectronicrecycling.com" target="_blank" rel="noopener"><div><h3>NC Electronic Recycling</h3><p>Electronics acceptance, reuse, and responsible recycling services serving North Carolina communities.</p><span class="project-domain">ncelectronicrecycling.com</span></div><span class="project-arrow">↗</span></a>
+          <a class="project-card surplus" href="https://tekpakinc.store" target="_blank" rel="noopener"><div><h3>TEK-PAK Surplus Store</h3><p>Surplus, refurbished, and specialty electronics offered through TEK-PAK's retail platform.</p><span class="project-domain">tekpakinc.store</span></div><span class="project-arrow">↗</span></a>
+          <a class="project-card rc" href="https://thercreserve.com" target="_blank" rel="noopener"><div><h3>The RC Reserve</h3><p>Remote-control hobby products, parts, projects, and enthusiast resources.</p><span class="project-domain">thercreserve.com</span></div><span class="project-arrow">↗</span></a>
+          <a class="project-card box" href="https://tekpakbox.com" target="_blank" rel="noopener"><div><h3>TEK Boxscriptions</h3><p>Curated technology-themed subscription boxes designed around discovery, value, and surprise.</p><span class="project-domain">tekpakbox.com</span></div><span class="project-arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="recycling" class="section">
+      <div class="container split">
+        <article class="feature-panel highlight">
+          <div class="eyebrow" style="color:#fff">Primary Direction</div>
+          <h3>Software is where TEK-PAK is going.</h3>
+          <p>Our primary growth focus is software development, digital products, and technology ventures that solve clear business or community needs.</p>
+          <ul><li>Clear project planning</li><li>Practical interface design</li><li>Scalable systems and integrations</li><li>Long-term product development</li></ul>
+        </article>
+        <article class="feature-panel">
+          <div class="eyebrow">Environmental Commitment</div>
+          <h3>E-waste remains part of who we are.</h3>
+          <p>TEK-PAK continues accepting retired electronics and supporting responsible recycling pathways through NC Electronic Recycling.</p>
+          <ul><li>Electronics acceptance</li><li>Reuse whenever practical</li><li>Responsible recycling pathways</li><li>Local environmental impact</li></ul>
+          <div class="hero-actions"><a class="btn btn-secondary" href="https://ncelectronicrecycling.com" target="_blank" rel="noopener">Recycling Information</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="process" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">How We Work</div>
+          <h2>A straightforward path from need to working software.</h2>
+          <p>Our process keeps projects understandable, visible, and focused on outcomes rather than unnecessary complexity.</p>
+        </div>
+        <div class="process">
+          <article class="process-card"><h3>Discover</h3><p>Define the problem, users, workflow, goals, and priorities.</p></article>
+          <article class="process-card"><h3>Plan</h3><p>Map the features, experience, architecture, and implementation path.</p></article>
+          <article class="process-card"><h3>Build</h3><p>Develop, test, refine, and share progress in clear stages.</p></article>
+          <article class="process-card"><h3>Support</h3><p>Launch, maintain, improve, and grow the finished product.</p></article>
+        </div>
+        <div class="cta-band"><div><h2>Have a process that software could improve?</h2><p>Let’s turn it into a practical digital solution.</p></div><a class="btn btn-primary" href="/contact">Contact TEK-PAK</a></div>
+      </div>
+    </section>
   </main>
-  <footer><div class="container footer-row"><div><strong>TEK-PAK Inc.</strong><br />Software Development, Technology Projects & Responsible E-Waste Recycling</div><div>Green Means Go.</div></div></footer>
-</div>
-<script>const b=document.querySelector('.menu-btn'),n=document.querySelector('.nav-links');if(b&&n){b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o))});n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{n.classList.remove('open');b.setAttribute('aria-expanded','false')}))}</script>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div><strong>TEK-PAK Inc.</strong><br />Software Development · Technology Ventures · Responsible E-Waste Recycling</div>
+        <div class="footer-links"><a href="#software">Software</a><a href="#projects">Projects</a><a href="#recycling">E-Waste</a><a href="/contact">Contact</a></div>
+      </div>
+      <div class="copyright">© 2026 TEK-PAK Inc. · Green Means Go.</div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton=document.querySelector('.menu-btn');
+    const nav=document.querySelector('.nav-links');
+    if(menuButton&&nav){
+      menuButton.addEventListener('click',()=>{
+        const open=nav.classList.toggle('open');
+        menuButton.setAttribute('aria-expanded',String(open));
+      });
+      nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded','false');
+      }));
+    }
+  </script>
 </body>
 </html>
