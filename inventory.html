@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Search TEK-PAK Inc. available technology inventory and surplus equipment.">
+<title>Inventory Search | TEK-PAK Inc.</title>
+<style>
+:root{--blue:#2563eb;--dark:#153a73;--yellow:#f4c542;--ink:#142033;--muted:#637083;--line:#dfe5ec;--bg:#f6f8fb}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit}.top{background:var(--dark);color:#dbe7f7;padding:8px 0;font-size:.86rem}.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+header{background:#fff;border-bottom:1px solid var(--line)}nav{min-height:82px;display:flex;align-items:center;gap:22px}.logo{width:76px}.home{margin-left:auto;text-decoration:none;font-weight:800;color:var(--dark)}
+.hero{background:#fff;border-bottom:1px solid var(--line);padding:60px 0 48px}.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--dark)}h1{font-size:clamp(2.5rem,6vw,4.5rem);line-height:1;margin:12px 0 16px;letter-spacing:-.045em}h1 span{color:var(--blue)}.hero p{max-width:720px;color:var(--muted);font-size:1.08rem}
+main{padding:34px 0 70px}.searchbox{background:#fff;border:1px solid var(--line);border-top:5px solid var(--yellow);border-radius:14px;padding:24px;box-shadow:0 12px 34px rgba(18,34,56,.07)}.controls{display:grid;grid-template-columns:1fr 210px;gap:12px}input,select{width:100%;min-height:50px;border:1px solid #cfd8e4;border-radius:8px;padding:0 14px;font:inherit;background:#fff}input:focus,select:focus{outline:3px solid rgba(37,99,235,.13);border-color:var(--blue)}
+.meta{display:flex;justify-content:space-between;gap:16px;margin:18px 2px;color:var(--muted);font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;min-height:245px}.status{align-self:flex-start;background:#e9f8ee;color:#24703c;padding:5px 9px;border-radius:999px;font-size:.75rem;font-weight:900;text-transform:uppercase}.category{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:900;margin-top:18px}.card h2{font-size:1.18rem;margin:6px 0}.details{color:var(--muted);font-size:.91rem;line-height:1.5}.bottom{margin-top:auto;padding-top:16px;border-top:1px solid #edf0f4;display:flex;justify-content:space-between;gap:12px;font-size:.86rem}.id{font-family:ui-monospace,monospace;color:#667}.location{font-weight:800;color:var(--dark)}.empty{display:none;background:#fff;border:1px dashed #bac5d2;border-radius:12px;padding:40px;text-align:center;color:var(--muted)}
+.notice{margin-top:26px;color:var(--muted);font-size:.86rem;line-height:1.6}footer{background:#14243a;color:#b9c5d5;padding:35px 0;margin-top:30px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.controls,.grid{grid-template-columns:1fr}.meta{flex-direction:column}.hero{padding-top:42px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><strong>TEK-PAK Inc.</strong> · Technology Inventory & Surplus</div></div>
+<header><nav class="wrap"><a href="index.html"><img class="logo" src="tekpaklogo.png" alt="TEK-PAK Inc."></a><a class="home" href="index.html">← Main Site</a></nav></header>
+<section class="hero"><div class="wrap"><div class="eyebrow">Client Inventory Portal</div><h1>Find the tech you <span>need.</span></h1><p>Search TEK-PAK inventory by manufacturer, model, category, item ID, or description. Availability reflects the latest published inventory manifest and should be confirmed before dispatch or pickup.</p></div></section>
+<main><div class="wrap"><section class="searchbox"><div class="controls"><input id="q" type="search" placeholder="Try “Dell”, “system board”, “DDR4”, “Latitude”…" aria-label="Search inventory"><select id="category" aria-label="Filter category"><option value="">All categories</option></select></div></section><div class="meta"><span id="count"></span><span>Published manifest · Client view</span></div><div id="grid" class="grid"></div><div id="empty" class="empty"><strong>No matching inventory found.</strong><br>Try a manufacturer, broader model number, component type, or item ID.</div><p class="notice">Inventory changes as equipment is received, staged, sold, or salvaged. A search result is not a reservation or guarantee of stock. Contact TEK-PAK to confirm current availability and compatibility before relying on an item for a service call.</p></div></main>
+<footer><div class="wrap"><strong>TEK-PAK Inc.</strong><br>Business technology, surplus equipment, and responsible electronics recycling.</div></footer>
+<script src="inventory-data.js"></script>
+<script>
+const data=window.TEKPAK_INVENTORY||[];const q=document.getElementById('q'),cat=document.getElementById('category'),grid=document.getElementById('grid'),count=document.getElementById('count'),empty=document.getElementById('empty');
+[...new Set(data.map(x=>x.category).filter(Boolean))].sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;cat.appendChild(o)});
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){const term=q.value.trim().toLowerCase(),cv=cat.value;const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||Object.values(x).join(' ').toLowerCase().includes(term)));count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown`;grid.innerHTML=rows.map(x=>`<article class="card"><span class="status">${esc(x.availability||'Listed')}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Available technology inventory item.')}</div><div class="bottom"><span class="id">${esc(x.id)}</span><span class="location">${esc(x.location||'TEK-PAK')}</span></div></article>`).join('');empty.style.display=rows.length?'none':'block'}
+q.addEventListener('input',render);cat.addEventListener('change',render);render();
+</script></body></html>
