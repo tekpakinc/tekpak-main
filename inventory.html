@@ -24,12 +24,10 @@ main{padding:34px 0 70px}.searchbox{background:#fff;border:1px solid var(--line)
 <script src="inventory-data.js"></script>
 <script src="legacy-inventory-data.js"></script>
 <script>
-const current=window.TEKPAK_INVENTORY||[];
+let current=window.TEKPAK_INVENTORY||[];
 const legacy=window.TEKPAK_LEGACY_INVENTORY||[];
-const currentIds=new Set(current.map(x=>String(x.id||'').trim().toLowerCase()).filter(Boolean));
-const data=[...current,...legacy.filter(x=>!currentIds.has(String(x.id||'').trim().toLowerCase()))];
+let data=[];
 const q=document.getElementById('q'),cat=document.getElementById('category'),grid=document.getElementById('grid'),count=document.getElementById('count'),empty=document.getElementById('empty');
-[...new Set(data.map(x=>x.category).filter(Boolean))].sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;cat.appendChild(o)});
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function firstImage(v){const s=String(v||'').trim();return s?s.split(',')[0].trim():''}
 function imageMarkup(x){const src=firstImage(x.image);if(!src)return '<div class="image-wrap"><div class="image-placeholder">No image available</div></div>';return `<div class="image-wrap"><img src="${esc(src)}" alt="${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="image-placeholder" style="display:none">Image unavailable</div></div>`}
@@ -38,4 +36,17 @@ function expandedTerm(t){let terms=[t];if(t.includes('motherboard'))terms.push(t
 function displayStatus(x){return String(x.availability||'Listed').toLowerCase().includes('legacy')?'Check Availability':(x.availability||'Listed')}
 function render(){const term=q.value.trim().toLowerCase(),cv=cat.value,terms=expandedTerm(term);const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||terms.some(t=>searchable(x).includes(t))));count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown · ${data.length} searchable records`;grid.innerHTML=rows.map(x=>{const legacyFlag=String(x.availability||'').toLowerCase().includes('legacy');const right=x.price?`<span class="price">${esc(x.price)}</span>`:`<span class="price">Contact for status</span>`;return `<article class="card">${imageMarkup(x)}<div class="card-body"><span class="status ${legacyFlag?'legacy':''}">${esc(displayStatus(x))}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Technology inventory item.')}</div><div class="bottom"><div><span class="id">${esc(x.id)}</span><span class="source">${legacyFlag?'Legacy inventory record':'Current inventory'}</span></div>${right}</div></div></article>`}).join('');empty.style.display=rows.length?'none':'block'}
 q.addEventListener('input',render);cat.addEventListener('change',render);render();
+async function syncInventory(){
+  try{
+    const response=await fetch('https://tek-pak-operations-hub.pitstop-pixie.chatgpt.site/api/public/inventory');
+    const live=await response.json();
+    if(response.ok&&live.ok)current=live.items||[];
+  }catch(error){console.warn('Using the last published inventory snapshot.',error)}
+  const currentIds=new Set(current.map(x=>String(x.id||'').trim().toLowerCase()).filter(Boolean));
+  data=[...current,...legacy.filter(x=>!currentIds.has(String(x.id||'').trim().toLowerCase()))];
+  [...new Set(data.map(x=>x.category).filter(Boolean))].sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;cat.appendChild(o)});
+  render();
+}
+syncInventory();
 </script></body></html>
+
