@@ -13,6 +13,18 @@ main{padding:34px 0 70px}.searchbox{background:#fff;border:1px solid var(--line)
 .meta{display:flex;justify-content:space-between;gap:16px;margin:18px 2px;color:var(--muted);font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-height:330px}.image-wrap{height:190px;background:#f3f5f8;border-bottom:1px solid #edf0f4;display:flex;align-items:center;justify-content:center;overflow:hidden}.image-wrap img{width:100%;height:100%;object-fit:contain;background:#fff}.image-placeholder{color:#8a97a8;font-size:.83rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.card-body{padding:20px;display:flex;flex-direction:column;flex:1}.status{align-self:flex-start;background:#e9f8ee;color:#24703c;padding:5px 9px;border-radius:999px;font-size:.75rem;font-weight:900;text-transform:uppercase}.status.legacy{background:#fff4cf;color:#765a00}.category{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);font-weight:900;margin-top:18px}.card h2{font-size:1.18rem;margin:6px 0}.details{color:var(--muted);font-size:.91rem;line-height:1.5}.bottom{margin-top:auto;padding-top:16px;border-top:1px solid #edf0f4;display:flex;justify-content:space-between;align-items:end;gap:12px;font-size:.86rem}.id{font-family:ui-monospace,monospace;color:#667}.price{font-weight:900;color:var(--dark);text-align:right}.source{display:block;color:#8b96a5;font-size:.72rem;font-weight:600;margin-top:2px}.empty{display:none;background:#fff;border:1px dashed #bac5d2;border-radius:12px;padding:40px;text-align:center;color:var(--muted)}
 .notice{margin-top:26px;color:var(--muted);font-size:.86rem;line-height:1.6}footer{background:#14243a;color:#b9c5d5;padding:35px 0;margin-top:30px}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.controls,.grid{grid-template-columns:1fr}.meta{flex-direction:column}.hero{padding-top:42px}.image-wrap{height:220px}}
+button.image-wrap{width:100%;padding:0;border:0;border-bottom:1px solid #edf0f4;position:relative;cursor:zoom-in}
+.photo-label{position:absolute;right:8px;bottom:8px;background:var(--dark);color:#fff;padding:5px 9px;border-radius:6px;font:600 .8rem system-ui}
+.gallery{width:min(760px,calc(100% - 24px));max-height:calc(100% - 24px);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:18px}
+.gallery::backdrop{background:rgba(20,32,51,.78)}
+.gallery-header,.gallery-controls{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gallery h2{margin:0;font-size:1.1rem}
+.gallery button,.buy{display:inline-block;font:inherit;font-weight:700;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--dark);cursor:pointer}
+.gallery button:disabled{opacity:.45;cursor:default}
+.gallery-photo{display:block;width:100%;height:min(56vh,520px);object-fit:contain;margin:12px 0;background:var(--bg)}
+.gallery-photo[hidden]{display:none}
+.gallery-error{padding:22px;text-align:center}
+.buy{margin-top:12px;align-self:flex-start;background:var(--yellow);border-color:var(--yellow);text-decoration:none}
 </style>
 </head>
 <body>
@@ -21,26 +33,111 @@ main{padding:34px 0 70px}.searchbox{background:#fff;border:1px solid var(--line)
 <section class="hero"><div class="wrap"><div class="eyebrow">Client Inventory Portal</div><h1>Find the tech you <span>need.</span></h1><p>Search current and legacy TEK-PAK inventory by manufacturer, model, category, item ID, component type, or description. Older records are clearly marked so our team can confirm that stock before pickup or dispatch.</p></div></section>
 <main><div class="wrap"><section class="searchbox"><div class="controls"><input id="q" type="search" placeholder="Try “Dell”, “motherboard”, “DDR4”, “Latitude”…" aria-label="Search inventory"><select id="category" aria-label="Filter category"><option value="">All categories</option></select></div></section><div class="meta"><span id="count"></span><span>Combined inventory manifest · Client view</span></div><div id="grid" class="grid"></div><div id="empty" class="empty"><strong>No matching inventory found.</strong><br>Try a manufacturer, broader model number, component type, or item ID.</div><p class="notice"><strong>Current records</strong> reflect the latest Fresh inventory manifest. <strong>Check Availability</strong> records came from older TEK-PAK inventory systems and may represent equipment that has since moved, sold, been salvaged, or changed condition. Contact TEK-PAK before relying on any result for pickup, purchase, or a service call.</p></div></main>
 <footer><div class="wrap"><strong>TEK-PAK Inc.</strong><br>Business technology, surplus equipment, and responsible electronics recycling.<p><a href="https://tek-pak-operations-hub.pitstop-pixie.chatgpt.site/" target="_blank" rel="noopener noreferrer">Employee Hub</a></p></div></footer>
+<dialog class="gallery" id="gallery" aria-labelledby="gallery-title">
+  <div class="gallery-header">
+    <h2 id="gallery-title"></h2>
+    <form method="dialog"><button autofocus>Close</button></form>
+  </div>
+  <img class="gallery-photo" id="gallery-photo" referrerpolicy="no-referrer">
+  <p class="gallery-error" id="gallery-error" hidden>Photo unavailable.</p>
+  <div class="gallery-controls">
+    <button type="button" id="gallery-prev">Previous</button>
+    <span id="gallery-count" aria-live="polite"></span>
+    <button type="button" id="gallery-next">Next</button>
+  </div>
+</dialog>
 <script src="inventory-data.js"></script>
 <script src="legacy-inventory-data.js"></script>
 <script>
 let current=window.TEKPAK_INVENTORY||[];
 const legacy=window.TEKPAK_LEGACY_INVENTORY||[];
 let data=[];
+let visibleItems=[];
+let liveInventoryAvailable=false;
+// Add an item ID with its public PayPal payment link and matching displayed price.
+const paypalListings = new Map();
+const gallery=document.getElementById('gallery');
+const galleryTitle=document.getElementById('gallery-title');
+const galleryPhoto=document.getElementById('gallery-photo');
+const galleryError=document.getElementById('gallery-error');
+const galleryCount=document.getElementById('gallery-count');
+const galleryPrev=document.getElementById('gallery-prev');
+const galleryNext=document.getElementById('gallery-next');
+let galleryImages=[];
+let galleryIndex=0;
 const q=document.getElementById('q'),cat=document.getElementById('category'),grid=document.getElementById('grid'),count=document.getElementById('count'),empty=document.getElementById('empty');
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function firstImage(v){const s=String(v||'').trim();return s?s.split(',')[0].trim():''}
-function imageMarkup(x){const src=firstImage(x.image);if(!src)return '<div class="image-wrap"><div class="image-placeholder">No image available</div></div>';return `<div class="image-wrap"><img src="${esc(src)}" alt="${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="image-placeholder" style="display:none">Image unavailable</div></div>`}
+function itemName(item){
+  return [item.manufacturer,item.model].filter(Boolean).join(' ') || item.id || 'Inventory item';
+}
+function itemImages(item){
+  const images=Array.isArray(item.images)?item.images:[];
+  const cover=String(item.image??'').split(',');
+  return [...new Set([...cover,...images].map(src=>String(src??'').trim()))]
+    .filter(src=>/^https?:\/\//i.test(src));
+}
+function imageMarkup(item,index){
+  const images=itemImages(item);
+  if(!images.length)return '<div class="image-wrap"><div class="image-placeholder">No image available</div></div>';
+  const label=images.length===1?'View photo':`View ${images.length} photos`;
+  return `<button class="image-wrap" type="button" data-gallery-index="${index}" aria-haspopup="dialog" aria-label="${label} of ${esc(itemName(item))}">
+    <img src="${esc(images[0])}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="image-placeholder" style="display:none">Image unavailable</span>
+    <span class="photo-label">${label}</span>
+  </button>`;
+}
+function showGalleryPhoto(index){
+  if(index<0||index>=galleryImages.length)return;
+  galleryIndex=index;
+  galleryPhoto.hidden=false;
+  galleryError.hidden=true;
+  galleryPhoto.src=galleryImages[index];
+  galleryPhoto.alt=`${galleryTitle.textContent}, photo ${index+1}`;
+  galleryCount.textContent=`Photo ${index+1} of ${galleryImages.length}`;
+  const focusedControl=document.activeElement;
+  galleryPrev.disabled=index===0;
+  galleryNext.disabled=index===galleryImages.length-1;
+  if(focusedControl===galleryPrev&&galleryPrev.disabled)galleryNext.focus();
+  if(focusedControl===galleryNext&&galleryNext.disabled)galleryPrev.focus();
+}
+galleryPhoto.addEventListener('error',()=>{
+  galleryPhoto.hidden=true;
+  galleryError.hidden=false;
+});
+galleryPrev.addEventListener('click',()=>showGalleryPhoto(galleryIndex-1));
+galleryNext.addEventListener('click',()=>showGalleryPhoto(galleryIndex+1));
+gallery.addEventListener('keydown',event=>{
+  if(event.key==='ArrowLeft')showGalleryPhoto(galleryIndex-1);
+  if(event.key==='ArrowRight')showGalleryPhoto(galleryIndex+1);
+});
+grid.addEventListener('click',event=>{
+  const trigger=event.target.closest('[data-gallery-index]');
+  if(!trigger)return;
+  const item=visibleItems[Number(trigger.dataset.galleryIndex)];
+  galleryImages=itemImages(item);
+  galleryTitle.textContent=itemName(item);
+  showGalleryPhoto(0);
+  gallery.showModal();
+});
+function buyMarkup(item){
+  if(!liveInventoryAvailable||!current.includes(item)||item.availability!=='Listed'||!(item.quantity>0))return '';
+  const listing=paypalListings.get(item.id);
+  if(!listing||listing.price!==item.price||!/^https:\/\/www\.paypal\.com\/ncp\/payment\/[A-Z0-9]+$/i.test(listing.url))return '';
+  return `<a class="buy" href="${esc(listing.url)}" aria-label="Buy ${esc(itemName(item))} with PayPal">Buy with PayPal</a>`;
+}
 function searchable(x){return Object.values(x).join(' ').toLowerCase().replace(/systemboard/g,'system board')}
 function expandedTerm(t){let terms=[t];if(t.includes('motherboard'))terms.push(t.replace(/motherboard/g,'system board'));if(t.includes('system board'))terms.push(t.replace(/system board/g,'motherboard'));if(t.includes('systemboard'))terms.push(t.replace(/systemboard/g,'system board'));return terms}
 function displayStatus(x){return String(x.availability||'Listed').toLowerCase().includes('legacy')?'Check Availability':(x.availability||'Listed')}
-function render(){const term=q.value.trim().toLowerCase(),cv=cat.value,terms=expandedTerm(term);const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||terms.some(t=>searchable(x).includes(t))));count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown · ${data.length} searchable records`;grid.innerHTML=rows.map(x=>{const legacyFlag=String(x.availability||'').toLowerCase().includes('legacy');const right=x.price?`<span class="price">${esc(x.price)}</span>`:`<span class="price">Contact for status</span>`;return `<article class="card">${imageMarkup(x)}<div class="card-body"><span class="status ${legacyFlag?'legacy':''}">${esc(displayStatus(x))}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Technology inventory item.')}</div><div class="bottom"><div><span class="id">${esc(x.id)}</span><span class="source">${legacyFlag?'Legacy inventory record':'Current inventory'}</span></div>${right}</div></div></article>`}).join('');empty.style.display=rows.length?'none':'block'}
+function render(){const term=q.value.trim().toLowerCase(),cv=cat.value,terms=expandedTerm(term);const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||terms.some(t=>searchable(x).includes(t))));visibleItems=rows;count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown · ${data.length} searchable records`;grid.innerHTML=rows.map((x,index)=>{const legacyFlag=String(x.availability||'').toLowerCase().includes('legacy');const right=x.price?`<span class="price">${esc(x.price)}</span>`:`<span class="price">Contact for status</span>`;return `<article class="card">${imageMarkup(x,index)}<div class="card-body"><span class="status ${legacyFlag?'legacy':''}">${esc(displayStatus(x))}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Technology inventory item.')}</div><div class="bottom"><div><span class="id">${esc(x.id)}</span><span class="source">${legacyFlag?'Legacy inventory record':'Current inventory'}</span></div>${right}</div>${buyMarkup(x)}</div></article>`}).join('');empty.style.display=rows.length?'none':'block'}
 q.addEventListener('input',render);cat.addEventListener('change',render);render();
 async function syncInventory(){
   try{
     const response=await fetch('https://tek-pak-operations-hub.pitstop-pixie.chatgpt.site/api/public/inventory');
     const live=await response.json();
-    if(response.ok&&live.ok)current=live.items||[];
+    if(response.ok&&live.ok&&Array.isArray(live.items)){
+      current=live.items;
+      liveInventoryAvailable=true;
+    }
   }catch(error){console.warn('Using the last published inventory snapshot.',error)}
   const currentIds=new Set(current.map(x=>String(x.id||'').trim().toLowerCase()).filter(Boolean));
   data=[...current,...legacy.filter(x=>!currentIds.has(String(x.id||'').trim().toLowerCase()))];
