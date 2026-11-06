@@ -25,13 +25,23 @@ button.image-wrap{width:100%;padding:0;border:0;border-bottom:1px solid #edf0f4;
 .gallery-photo[hidden]{display:none}
 .gallery-error{padding:22px;text-align:center}
 .buy{margin-top:12px;align-self:flex-start;background:var(--yellow);border-color:var(--yellow);text-decoration:none}
+.fulfillment{margin-top:20px;padding:16px 20px;background:#fff;border:1px solid var(--line);border-radius:10px;line-height:1.5}
+.fulfillment p{margin:4px 0}
+.fulfillment-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.fulfillment-actions a{padding:7px 9px;border:1px solid var(--line);border-radius:6px;color:var(--dark);font-size:.84rem;font-weight:700;text-decoration:none}
+.fulfillment-actions a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="top"><div class="wrap"><strong>TEK-PAK Inc.</strong> · Technology Inventory & Surplus</div></div>
 <header><nav class="wrap"><a href="index.html"><img class="logo" src="tekpaklogo.png" alt="TEK-PAK Inc."></a><a class="home" href="index.html">← Main Site</a></nav></header>
 <section class="hero"><div class="wrap"><div class="eyebrow">Client Inventory Portal</div><h1>Find the tech you <span>need.</span></h1><p>Search current and legacy TEK-PAK inventory by manufacturer, model, category, item ID, component type, or description. Older records are clearly marked so our team can confirm that stock before pickup or dispatch.</p></div></section>
-<main><div class="wrap"><section class="searchbox"><div class="controls"><input id="q" type="search" placeholder="Try “Dell”, “motherboard”, “DDR4”, “Latitude”…" aria-label="Search inventory"><select id="category" aria-label="Filter category"><option value="">All categories</option></select></div></section><div class="meta"><span id="count"></span><span>Combined inventory manifest · Client view</span></div><div id="grid" class="grid"></div><div id="empty" class="empty"><strong>No matching inventory found.</strong><br>Try a manufacturer, broader model number, component type, or item ID.</div><p class="notice"><strong>Current records</strong> reflect the latest Fresh inventory manifest. <strong>Check Availability</strong> records came from older TEK-PAK inventory systems and may represent equipment that has since moved, sold, been salvaged, or changed condition. Contact TEK-PAK before relying on any result for pickup, purchase, or a service call.</p></div></main>
+<main><div class="wrap"><section class="searchbox"><div class="controls"><input id="q" type="search" placeholder="Try “Dell”, “motherboard”, “DDR4”, “Latitude”…" aria-label="Search inventory"><select id="category" aria-label="Filter category"><option value="">All categories</option></select></div></section>
+<section class="fulfillment" aria-label="Pickup and shipping">
+  <p><strong>Local pickup by appointment only</strong> at TEK-PAK Inc., 1788 Major Hill Rd, Snow Camp, NC 27349.</p>
+  <p><strong>Shipping</strong> is quoted before payment. Request a quote from the item listing and include your destination ZIP or postal code.</p>
+</section>
+<div class="meta"><span id="count"></span><span>Combined inventory manifest · Client view</span></div><div id="grid" class="grid"></div><div id="empty" class="empty"><strong>No matching inventory found.</strong><br>Try a manufacturer, broader model number, component type, or item ID.</div><p class="notice"><strong>Current records</strong> reflect the latest Fresh inventory manifest. <strong>Check Availability</strong> records came from older TEK-PAK inventory systems and may represent equipment that has since moved, sold, been salvaged, or changed condition. Contact TEK-PAK before relying on any result for pickup, purchase, or a service call.</p></div></main>
 <footer><div class="wrap"><strong>TEK-PAK Inc.</strong><br>Business technology, surplus equipment, and responsible electronics recycling.<p><a href="https://tek-pak-operations-hub.pitstop-pixie.chatgpt.site/" target="_blank" rel="noopener noreferrer">Employee Hub</a></p></div></footer>
 <dialog class="gallery" id="gallery" aria-labelledby="gallery-title">
   <div class="gallery-header">
@@ -119,8 +129,25 @@ grid.addEventListener('click',event=>{
   showGalleryPhoto(0);
   gallery.showModal();
 });
+function isLiveListing(item){
+  return liveInventoryAvailable&&current.includes(item)&&item.availability==='Listed'&&item.quantity>0;
+}
+function fulfillmentMarkup(item){
+  if(!isLiveListing(item))return '';
+  const name=itemName(item);
+  const itemDetails=`Item: ${name}\nItem number: ${item.id}\nQuantity: 1`;
+  const email='mailto:info@tekpakinc.com';
+  const quoteSubject=encodeURIComponent(`Shipping quote for ${item.id}`);
+  const quoteBody=encodeURIComponent(`Hello TEK-PAK,\n\nPlease send me a shipping quote for the item below.\n\n${itemDetails}\nDestination ZIP or postal code: \nDestination country: \n`);
+  const pickupSubject=encodeURIComponent(`Pickup appointment for ${item.id}`);
+  const pickupBody=encodeURIComponent(`Hello TEK-PAK,\n\nI'd like to arrange pickup for the item below.\n\n${itemDetails}\nPreferred date and time: \n`);
+  return `<div class="fulfillment-actions">
+    <a href="${email}?subject=${quoteSubject}&amp;body=${quoteBody}" aria-label="Request shipping quote for ${esc(name)}">Request shipping quote</a>
+    <a href="${email}?subject=${pickupSubject}&amp;body=${pickupBody}" aria-label="Request pickup appointment for ${esc(name)}">Request pickup appointment</a>
+  </div>`;
+}
 function buyMarkup(item){
-  if(!liveInventoryAvailable||!current.includes(item)||item.availability!=='Listed'||!(item.quantity>0))return '';
+  if(!isLiveListing(item))return '';
   const listing=paypalListings.get(item.id);
   if(!listing||listing.price!==item.price||!/^https:\/\/www\.paypal\.com\/ncp\/payment\/[A-Z0-9]+$/i.test(listing.url))return '';
   return `<a class="buy" href="${esc(listing.url)}" aria-label="Buy ${esc(itemName(item))} with PayPal">Buy with PayPal</a>`;
@@ -128,7 +155,7 @@ function buyMarkup(item){
 function searchable(x){return Object.values(x).join(' ').toLowerCase().replace(/systemboard/g,'system board')}
 function expandedTerm(t){let terms=[t];if(t.includes('motherboard'))terms.push(t.replace(/motherboard/g,'system board'));if(t.includes('system board'))terms.push(t.replace(/system board/g,'motherboard'));if(t.includes('systemboard'))terms.push(t.replace(/systemboard/g,'system board'));return terms}
 function displayStatus(x){return String(x.availability||'Listed').toLowerCase().includes('legacy')?'Check Availability':(x.availability||'Listed')}
-function render(){const term=q.value.trim().toLowerCase(),cv=cat.value,terms=expandedTerm(term);const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||terms.some(t=>searchable(x).includes(t))));visibleItems=rows;count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown · ${data.length} searchable records`;grid.innerHTML=rows.map((x,index)=>{const legacyFlag=String(x.availability||'').toLowerCase().includes('legacy');const right=x.price?`<span class="price">${esc(x.price)}</span>`:`<span class="price">Contact for status</span>`;return `<article class="card">${imageMarkup(x,index)}<div class="card-body"><span class="status ${legacyFlag?'legacy':''}">${esc(displayStatus(x))}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Technology inventory item.')}</div><div class="bottom"><div><span class="id">${esc(x.id)}</span><span class="source">${legacyFlag?'Legacy inventory record':'Current inventory'}</span></div>${right}</div>${buyMarkup(x)}</div></article>`}).join('');empty.style.display=rows.length?'none':'block'}
+function render(){const term=q.value.trim().toLowerCase(),cv=cat.value,terms=expandedTerm(term);const rows=data.filter(x=>(!cv||x.category===cv)&&(!term||terms.some(t=>searchable(x).includes(t))));visibleItems=rows;count.textContent=`${rows.length} item${rows.length===1?'':'s'} shown · ${data.length} searchable records`;grid.innerHTML=rows.map((x,index)=>{const legacyFlag=String(x.availability||'').toLowerCase().includes('legacy');const right=x.price?`<span class="price">${esc(x.price)}</span>`:`<span class="price">Contact for status</span>`;return `<article class="card">${imageMarkup(x,index)}<div class="card-body"><span class="status ${legacyFlag?'legacy':''}">${esc(displayStatus(x))}</span><div class="category">${esc(x.category||'Inventory')}</div><h2>${esc([x.manufacturer,x.model].filter(Boolean).join(' '))}</h2><div class="details">${esc(x.details||'Technology inventory item.')}</div><div class="bottom"><div><span class="id">${esc(x.id)}</span><span class="source">${legacyFlag?'Legacy inventory record':'Current inventory'}</span></div>${right}</div>${fulfillmentMarkup(x)}${buyMarkup(x)}</div></article>`}).join('');empty.style.display=rows.length?'none':'block'}
 q.addEventListener('input',render);cat.addEventListener('change',render);render();
 async function syncInventory(){
   try{
